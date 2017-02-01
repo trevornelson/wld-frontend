@@ -41,6 +41,129 @@ export default function createRoutes(store) {
           .then(loadModule(cb))
           .catch(errorLoading);
       },
+      childRoutes: [
+        {
+          path: '/dashboard/core',
+          name: 'core',
+          getComponent(nextState, cb) {
+            const importModules = Promise.all([
+              import('containers/Core/reducer'),
+              import('containers/Core/sagas'),
+              import('containers/Core'),
+            ]);
+
+            const renderRoute = loadModule(cb);
+
+            importModules.then(([reducer, sagas, component]) => {
+              injectReducer('core', reducer.default);
+              injectSagas(sagas.default);
+              renderRoute(component);
+            });
+
+            importModules.catch(errorLoading);
+          }
+        }, {
+          path: '/dashboard/relationships',
+          name: 'relationships',
+          getComponent(nextState, cb) {
+            const importModules = Promise.all([
+              import('containers/Relationships/reducer'),
+              import('containers/Relationships/sagas'),
+              import('containers/Relationships'),
+            ]);
+
+            const renderRoute = loadModule(cb);
+
+            importModules.then(([reducer, sagas, component]) => {
+              injectReducer('relationships', reducer.default);
+              injectSagas(sagas.default);
+              renderRoute(component);
+            });
+
+            importModules.catch(errorLoading);
+          }
+        }, {
+          path: '/dashboard/long-term',
+          name: 'long-term',
+          getComponent(nextState, cb) {
+            const importModules = Promise.all([
+              import('containers/LongTermGoals/reducer'),
+              import('containers/LongTermGoals/sagas'),
+              import('containers/LongTermGoals'),
+            ]);
+
+            const renderRoute = loadModule(cb);
+
+            importModules.then(([reducer, sagas, component]) => {
+              injectReducer('longTermGoals', reducer.default);
+              injectSagas(sagas.default);
+              renderRoute(component);
+            });
+
+            importModules.catch(errorLoading);
+          }
+        }, {
+          path: '/dashboard/short-term',
+          name: 'short-term',
+          getComponent(nextState, cb) {
+            const importModules = Promise.all([
+              import('containers/ShortTermGoals/reducer'),
+              import('containers/ShortTermGoals/sagas'),
+              import('containers/ShortTermGoals'),
+            ]);
+
+            const renderRoute = loadModule(cb);
+
+            importModules.then(([reducer, sagas, component]) => {
+              injectReducer('shortTermGoals', reducer.default);
+              injectSagas(sagas.default);
+              renderRoute(component);
+            });
+
+            importModules.catch(errorLoading);
+          }
+        }, {
+          path: '/dashboard/priorities',
+          name: 'priorities',
+          getComponent(nextState, cb) {
+            const importModules = Promise.all([
+              import('containers/Priorities/reducer'),
+              import('containers/Priorities/sagas'),
+              import('containers/Priorities'),
+            ]);
+
+            const renderRoute = loadModule(cb);
+
+            importModules.then(([reducer, sagas, component]) => {
+              injectReducer('priorities', reducer.default);
+              injectSagas(sagas.default);
+              renderRoute(component);
+            });
+
+            importModules.catch(errorLoading);
+          }
+        }, {
+          path: '/dashboard/affirmations',
+          name: 'affirmations',
+          getComponent(nextState, cb) {
+            const importModules = Promise.all([
+              import('containers/Affirmations/reducer'),
+              import('containers/Affirmations/sagas'),
+              import('containers/Affirmations'),
+            ]);
+
+            const renderRoute = loadModule(cb);
+
+            importModules.then(([reducer, sagas, component]) => {
+              injectReducer('affirmations', reducer.default);
+              injectSagas(sagas.default);
+              renderRoute(component);
+            });
+
+            importModules.catch(errorLoading);
+          }
+        },
+      ]
     }, {
       path: '*',
       name: 'notfound',
