@@ -10,3 +10,16 @@
  */
 
 export const DEFAULT_LOCALE = 'en';
+
+export const CORE_VALUE_INDEXES = ['first', 'second', 'third'];
+
+// Focused component constants
+export const CORE_VALUES_FOCUSED = 'core-values';
+export const CORE_PURPOSE_FOCUSED = 'core-purpose';
+export const KEY_RELATIONSHIPS_FOCUSED = 'key-relationships';
+export const LONG_TERM_FOCUSED = 'long-term-goals';
+export const SHORT_TERM_FOCUSED = 'short-term-goals';
+export const DAILY_PRIORITIES_FOCUSED = 'daily-priorities';
+export const WEEKLY_PRIORITIES_FOCUSED = 'weekly-priorities';
+export const QUARTERLY_PRIORITIES_FOCUSED = 'quarterly-priorities';
+export const AFFIRMATIONS_FOCUSED = 'affirmations';

@@ -10,13 +10,13 @@ import { Link } from 'react-router';
 import Container from 'components/Sidebar/Container';
 import MenuList from 'components/Sidebar/MenuList';
 import MenuListItem from 'components/Sidebar/MenuListItem';
-
+import Logo from 'components/Logo';
 
 class Sidebar extends React.PureComponent {
   render() {
     return (
     	<Container>
-    		<h2>Whole Life Dashboard</h2>
+    		<Logo size="60px"/>
     		<MenuList>
 	    		<MenuListItem>
 	    			<Link to={ `/dashboard/core` }>Core Purpose & Values</Link>

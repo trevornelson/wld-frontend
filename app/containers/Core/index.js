@@ -9,19 +9,51 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import makeSelectCore from './selectors';
 
+import { changeCorePurpose, changeCoreValue, toggleCoreHelpView } from './actions';
+
 import Title from 'components/Dashboard/Title';
+import HelpView from 'components/HelpView';
+import FormView from 'components/FormView';
+import CorePurpose from 'components/Core/CorePurpose';
+import CoreValues from 'components/Core/CoreValues';
 
 export class Core extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
+    const {
+      Core,
+      onCorePurposeChange,
+      onCoreValueChange,
+      onToggleHelpView
+    } = this.props;
+    const { corePurpose, coreValues, activeHelpView } = Core;
+
     return (
       <div>
-        <Title>Core Values & Purpose</Title>
+        <FormView>
+          <Title>Core Values & Purpose</Title>
+          <CorePurpose
+            purposeText={ corePurpose }
+            handleChange={ onCorePurposeChange }
+            handleFocus={ onToggleHelpView }
+          />
+          <CoreValues
+            coreValues={ coreValues }
+            handleChange={ onCoreValueChange }
+            handleFocus={ onToggleHelpView }
+          />
+        </FormView>
+        { activeHelpView ? <HelpView>
+            <div>{ activeHelpView }</div>
+          </HelpView> : null
+        }
       </div>
     );
   }
 }
 
 Core.propTypes = {
+  onCorePurposeChange: PropTypes.func,
+  onCoreValueChange: PropTypes.func,
   dispatch: PropTypes.func.isRequired,
 };
 
@@ -31,6 +63,9 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
+    onCorePurposeChange: (e) => dispatch(changeCorePurpose(e.target.value)),
+    onCoreValueChange: (valueIndex, valueText) => dispatch(changeCoreValue(valueIndex, valueText)),
+    onToggleHelpView: (view) => dispatch(toggleCoreHelpView(view)),
     dispatch,
   };
 }
