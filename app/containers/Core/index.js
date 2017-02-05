@@ -42,10 +42,8 @@ export class Core extends React.PureComponent { // eslint-disable-line react/pre
             handleFocus={ onToggleHelpView }
           />
         </FormView>
-        { activeHelpView ? <HelpView>
-            <div>{ activeHelpView }</div>
-          </HelpView> : null
-        }
+        
+        <HelpView activeHelpView={ activeHelpView } />
       </div>
     );
   }
