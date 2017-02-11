@@ -4,7 +4,7 @@
 *
 */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import styled from 'styled-components';
 import { bind, partial, get } from 'lodash';
 
@@ -57,6 +57,7 @@ class ListCard extends React.PureComponent { // eslint-disable-line react/prefer
   render() {
   	const {
       isListEditable,
+      canAddItems,
   		title,
   		index,
   		items,
@@ -87,12 +88,12 @@ class ListCard extends React.PureComponent { // eslint-disable-line react/prefer
               );
             })
           }
-          <ListItem
+          { canAddItems ? <ListItem
             isNew={ true }
             placeholderText={ itemPlaceholder }
             categoryIndex={ index }
             onAddItem={ onAddItem }
-          />
+          /> : null }
         </div>
       </div>
     );
@@ -100,7 +101,20 @@ class ListCard extends React.PureComponent { // eslint-disable-line react/prefer
 }
 
 ListCard.propTypes = {
-
+  isListEditable: PropTypes.bool,
+  canAddItems: PropTypes.bool,
+  title: PropTypes.string,
+  index: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.array
+  ]),
+  items: PropTypes.array,
+  itemPlaceholder: PropTypes.string,
+  onEditList: PropTypes.func,
+  onDeleteList: PropTypes.func,
+  onAddItem: PropTypes.func,
+  onEditItem: PropTypes.func,
+  onDeleteItem: PropTypes.func
 };
 
 export default ListCard;
