@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const TextInput = styled.div`
 	width: 100%;
-	font-size: 12px;
+	font-size: 14px;
 	color: #494949;
 
 	input {

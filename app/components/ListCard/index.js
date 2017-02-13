@@ -107,6 +107,7 @@ ListCard.propTypes = {
   title: PropTypes.string,
   index: PropTypes.oneOfType([
     PropTypes.string,
+    PropTypes.number,
     PropTypes.array
   ]),
   items: PropTypes.array,

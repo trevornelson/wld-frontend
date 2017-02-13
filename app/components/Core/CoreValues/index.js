@@ -36,7 +36,7 @@ class CoreValues extends React.PureComponent { // eslint-disable-line react/pref
       					alreadyRenderedEmpty = true;
       				}
       			}
-      			return (<TextInput>
+      			return (<TextInput key={ i }>
               <input
   		      		type="text"
   		      		key={ i }

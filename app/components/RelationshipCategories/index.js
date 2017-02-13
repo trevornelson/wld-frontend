@@ -11,6 +11,12 @@ import ListCard from 'components/ListCard';
 import ListCardWrapper from './ListCardWrapper';
 
 const Wrapper = styled.div`
+  display: inline-block;
+  background: #DADFE1;
+  padding: 10px;
+  margin-bottom: 25px;
+  border-radius: 3px;
+  box-shadow: 2px 2px 2px #6C7A89;
 `;
 
 class RelationshipCategories extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -25,31 +31,34 @@ class RelationshipCategories extends React.PureComponent { // eslint-disable-lin
   		onDeleteRelationship
   	} = this.props;
 
-    return (
-      <Wrapper>
-      { categories.map((category, index) => {
-      		return (
-            <ListCardWrapper key={ category }>
-        			<ListCard
-                isListEditable={ true }
-                canAddItems={ true }
-  	      			title={ category.name }
-  	      			key={ category.name + index }
-  	      			index={ index }
-  	      			items={ category.relationships }
-                itemPlaceholder="Add a relationship..."
-  	      			onEditList={ onEditCategory }
-  	      			onDeleteList={ onDeleteCategory }
-  	      			onAddItem={ onAddRelationship }
-  	      			onEditItem={ onEditRelationship }
-  	      			onDeleteItem={ onDeleteRelationship }
-  	      		/>
-            </ListCardWrapper>
-	      	);
-      	})
-      }
-      </Wrapper>
-    );
+    if (categories.length) {
+      return (
+        <Wrapper>
+        { categories.map((category, index) => {
+        		return (
+              <ListCardWrapper key={ category.name + index }>
+          			<ListCard
+                  isListEditable={ true }
+                  canAddItems={ true }
+    	      			title={ category.name }
+    	      			index={ index }
+    	      			items={ category.relationships }
+                  itemPlaceholder="Add a relationship..."
+    	      			onEditList={ onEditCategory }
+    	      			onDeleteList={ onDeleteCategory }
+    	      			onAddItem={ onAddRelationship }
+    	      			onEditItem={ onEditRelationship }
+    	      			onDeleteItem={ onDeleteRelationship }
+    	      		/>
+              </ListCardWrapper>
+  	      	);
+        	})
+        }
+        </Wrapper>
+      );
+    } else {
+      return <div />
+    }
   }
 }
 
