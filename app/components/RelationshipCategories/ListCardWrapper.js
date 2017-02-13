@@ -6,10 +6,10 @@ const ListCardWrapper = styled.div`
 	width: 200px;
 	padding: 0px 10px;
 	background: white;
-	border: 1px solid red;
 	border-radius: 4px;
+	box-shadow: 2px 2px 2px #6C7A89;
 
-	h3 {
+	.list-card-title {
 		display: inline-block;
 		width: 65%;
 		font-size: 16px;

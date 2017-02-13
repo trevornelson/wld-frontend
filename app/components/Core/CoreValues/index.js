@@ -36,15 +36,17 @@ class CoreValues extends React.PureComponent { // eslint-disable-line react/pref
       					alreadyRenderedEmpty = true;
       				}
       			}
-      			return (<TextInput
-		      		type="text"
-		      		key={ i }
-		      		defaultValue={ coreValues[i] }
-		      		placeholder="enter a core value..."
-		      		onChange={ bind(this.handleCoreValueChange, this, i) }
-		      		onFocus={ partial(handleFocus, CORE_VALUES_FOCUSED) }
-		      		onBlur={ partial(handleFocus, '') }
-						/>);
+      			return (<TextInput>
+              <input
+  		      		type="text"
+  		      		key={ i }
+  		      		defaultValue={ coreValues[i] }
+  		      		placeholder="enter a core value..."
+  		      		onChange={ bind(this.handleCoreValueChange, this, i) }
+  		      		onFocus={ partial(handleFocus, CORE_VALUES_FOCUSED) }
+  		      		onBlur={ partial(handleFocus, '') }
+              />
+						</TextInput>);
       		})
       	}
       </div>

@@ -19,7 +19,7 @@ const MenuListItem = styled.li`
 	}
 
 	&:hover {
-		background-color: gray;
+		background-color: #DADFE1;
 	}
 
 	a {

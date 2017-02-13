@@ -5,9 +5,10 @@ const ListCardWrapper = styled.div`
 	min-height: 150px;
 	width: 200px;
 	padding: 0px 10px;
+	margin: 0px 5px;
 	background: white;
-	border: 1px solid red;
 	border-radius: 4px;
+	box-shadow: 2px 2px 2px #6C7A89;
 
 	.list-card-title {
 		display: inline-block;

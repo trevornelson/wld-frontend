@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import Modal from 'react-modal';
 import { createStructuredSelector } from 'reselect';
 import makeSelectShortTermGoals from './selectors';
+import styled from 'styled-components';
 
 import { addGoal, assignGoal, editGoal, deleteGoal, closeModal } from './actions';
 
@@ -16,6 +17,14 @@ import ShortTermGoalsModal from 'containers/ShortTermGoalsModal';
 import Title from 'components/Dashboard/Title';
 import ListCard from 'components/ListCard';
 import ListCardWrapper from 'components/ShortGoals/ListCardWrapper';
+
+const Container = styled.div`
+  display: inline-block;
+  background: #DADFE1;
+  padding: 10px;
+  border-radius: 3px;
+  box-shadow: 2px 2px 2px #6C7A89;
+`;
 
 export class ShortTermGoals extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -25,12 +34,14 @@ export class ShortTermGoals extends React.PureComponent { // eslint-disable-line
     return (
       <div>
         <Title>Short Term Goals</Title>
+        <Container>
         {
           ['Personal', 'Family', 'Business', 'Community'].map((category) => {
             return (
               <ListCardWrapper key={ category }>
                 <ListCard
                   isListEditable={ false }
+                  canAddItems={ true }
                   title={ category }
                   index={ category }
                   items={ goals[category] }
@@ -43,6 +54,7 @@ export class ShortTermGoals extends React.PureComponent { // eslint-disable-line
             );
           })
         }
+        </Container>
         <ShortTermGoalsModal
           isOpen={ isModalOpen }
           pendingCategory={ pendingCategory }

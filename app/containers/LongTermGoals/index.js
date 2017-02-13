@@ -14,6 +14,8 @@ import { editGoal, addGoal, deleteGoal } from './actions';
 import Title from 'components/Dashboard/Title';
 import ListCard from 'components/ListCard';
 import ListCardWrapper from 'components/LongGoals/ListCardWrapper';
+import CategoryWrapper from 'components/LongGoals/CategoryWrapper';
+import InputLabel from 'components/InputLabel';
 
 export class LongTermGoals extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -26,14 +28,15 @@ export class LongTermGoals extends React.PureComponent { // eslint-disable-line 
         {
           ['Personal', 'Family', 'Business', 'Community'].map((category) => {
             return (
-              <div key={ category }>
-                <h3>{ category }</h3>
+              <CategoryWrapper key={ category }>
+                <InputLabel>{ category }</InputLabel>
                 {
                   ['3', '5', '10'].map((year) => {
                     return (
                       <ListCardWrapper key={ `${category}-${year}` }>
                         <ListCard
                           isListEditable={ false }
+                          canAddItems={ true }
                           title={ `${year} Year` }
                           index={ [category, year] }
                           items={ goals[category][year] }
@@ -46,7 +49,7 @@ export class LongTermGoals extends React.PureComponent { // eslint-disable-line 
                     );
                   })
                 }
-              </div>
+              </CategoryWrapper>
             );
           })
         }

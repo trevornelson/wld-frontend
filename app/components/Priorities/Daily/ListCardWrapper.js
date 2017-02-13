@@ -2,13 +2,22 @@ import styled from 'styled-components';
 
 const ListCardWrapper = styled.div`
 	display: inline-block;
-	min-height: 250px;
+	height: 200px;
 	width: 200px;
+	margin: 10px;
 	padding: 0px 10px;
-	margin: 0px 5px;
 	background: white;
+	border: 1px solid red;
 	border-radius: 4px;
 	box-shadow: 2px 2px 2px #6C7A89;
+
+	h3 {
+		display: inline-block;
+		width: 65%;
+		font-size: 16px;
+		font-weight: bold;
+		font-color: red;
+	}
 
 	.list-utils {
 		display: inline-block;

@@ -7,12 +7,12 @@ const ListCardWrapper = styled.div`
 	margin: 10px;
 	padding: 0px 10px;
 	background: white;
-	border: 1px solid red;
 	border-radius: 4px;
+	box-shadow: 2px 2px 2px #6C7A89;
 
 	h3 {
 		display: inline-block;
-		width: 65%;
+		width: 100%;
 		font-size: 16px;
 		font-weight: bold;
 		font-color: red;
@@ -20,9 +20,14 @@ const ListCardWrapper = styled.div`
 
 	.list-utils {
 		display: inline-block;
-		width: 30%;
+		position: relative;
+		z-index: 1;
+		right: -25px;
+		top: 1px;
     float: right;
 		font-size: 10px;
+		cursor: pointer;
+		width: 0px;
 	}
 
   input {

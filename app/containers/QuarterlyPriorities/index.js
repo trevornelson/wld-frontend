@@ -7,11 +7,21 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import styled from 'styled-components';
 
 import { makeSelectQuarterlyPriorities } from 'containers/Priorities/selectors';
 import { addQuarterly, editQuarterly, deleteQuarterly } from 'containers/Priorities/actions';
 
 import Quarterly from 'components/Priorities/Quarterly';
+
+const Wrapper = styled.div`
+  display: block;
+  background: #DADFE1;
+  padding: 10px;
+  margin: 25px 0px;
+  border-radius: 3px;
+  box-shadow: 2px 2px 2px #6C7A89;
+`;
 
 export class QuarterlyPriorities extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -23,8 +33,7 @@ export class QuarterlyPriorities extends React.PureComponent { // eslint-disable
     } = this.props;
 
     return (
-      <div>
-        <h3>Quarterly Priorities</h3>
+      <Wrapper>
         <div>
           <Quarterly
             category="Open"
@@ -57,7 +66,7 @@ export class QuarterlyPriorities extends React.PureComponent { // eslint-disable
             onDeleteQuarterly={ onDeleteQuarterly }
           />
         </div>
-      </div>
+      </Wrapper>
     );
   }
 }

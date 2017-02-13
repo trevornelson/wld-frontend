@@ -14,18 +14,19 @@ class Logo extends React.PureComponent {
   		textDecoration: 'none',
   		cursor: 'pointer',
   		display: 'inline-block',
-  		marginLeft: '60px'
+      marginTop: '20px',
+  		marginLeft: '80px'
   	};
   	const innerStyles = {
   		width: size,
   		height: size,
-  		fontSize: size,
-  		color: 'red'
+      background: 'url(https://s3.amazonaws.com/whole-life-dashboard/images/logo_icon.png)',
+      backgroundSize: 'cover'
   	};
 
     return (
     	<Link to={ `/dashboard` } style={ linkStyles }>
-    		<div style={ innerStyles }>&gt;&gt;</div>
+    		<div style={ innerStyles } />
     	</Link>
     );
   }

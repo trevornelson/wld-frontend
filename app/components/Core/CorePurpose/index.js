@@ -21,15 +21,17 @@ class CorePurpose extends React.PureComponent { // eslint-disable-line react/pre
     return (
       <div>
       	<InputLabel>Core Purpose:</InputLabel>
-      	<TextInput
-      		type="text"
-      		name="purpose"
-      		defaultValue={ purposeText }
-      		placeholder="enter your core purpose..."
-      		onChange={ handleChange }
-          onFocus={ partial(handleFocus, CORE_PURPOSE_FOCUSED) }
-          onBlur={ partial(handleFocus, '') }
-        />
+      	<TextInput>
+          <input
+        		type="text"
+        		name="purpose"
+        		defaultValue={ purposeText }
+        		placeholder="enter your core purpose..."
+        		onChange={ handleChange }
+            onFocus={ partial(handleFocus, CORE_PURPOSE_FOCUSED) }
+            onBlur={ partial(handleFocus, '') }
+          />
+        </TextInput>
       </div>
     );
   }

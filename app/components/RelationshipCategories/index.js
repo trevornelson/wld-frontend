@@ -32,6 +32,7 @@ class RelationshipCategories extends React.PureComponent { // eslint-disable-lin
             <ListCardWrapper key={ category }>
         			<ListCard
                 isListEditable={ true }
+                canAddItems={ true }
   	      			title={ category.name }
   	      			key={ category.name + index }
   	      			index={ index }

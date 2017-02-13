@@ -9,22 +9,18 @@ import styled from 'styled-components';
 import { bind, partial } from 'lodash';
 import ToolTip from 'rc-tooltip';
 
+import TextInput from 'components/TextInput';
+
 const Wrapper = styled.div`
-  display: inline-block;
+  display: block;
 
   input {
     width: 80%;
     font-size: 12px;
   }
 
-  .item-utils {
-    display: inline-block;
-    width: 20%;
-    font-size: 8px;
-  }
-
   .item-utils button {
-    float: right;
+    font-size: 12px;
   }
 `;
 
@@ -70,28 +66,30 @@ class ListItem extends React.PureComponent { // eslint-disable-line react/prefer
     const showToolTip = !isEditing && tip;
 
     return (
-      <Wrapper>
+      <div>
         <ToolTip
           placement="bottom"
           trigger={ showToolTip ? ['hover'] : [] }
           overlay={ <span>Testing!</span> }
         >
-          <input
-            type="text"
-            defaultValue={ text }
-            placeholder={ placeholderText }
-            ref={ (itemInput) => { this.itemInput = itemInput; } }
-            onFocus={ bind(this.handleEdit, this, true) }
-            onBlur={ bind(this.handleEdit, this, false) }
-          />
+          <TextInput>
+            <input
+              type="text"
+              defaultValue={ text }
+              placeholder={ placeholderText }
+              ref={ (itemInput) => { this.itemInput = itemInput; } }
+              onFocus={ bind(this.handleEdit, this, true) }
+              onBlur={ bind(this.handleEdit, this, false) }
+            />
+            <div className="item-utils">
+              { isEditing ? <div>
+                { !isNew ? <button onClick={ bind(this.handleDelete, this) }><span className="fa fa-trash-o" /></button> : null }
+                <button onClick={ bind(this.handleSave, this) }>{ isNew ? <span className="fa fa-plus" /> : <span className="fa fa-floppy-o" /> }</button>
+              </div> : null }
+            </div>
+          </TextInput>
         </ToolTip>
-        <div className="item-utils">
-          { isEditing ? <div>
-            { !isNew ? <button onClick={ bind(this.handleDelete, this) }>X</button> : null }
-            <button onClick={ bind(this.handleSave, this) }>Save</button>
-          </div> : null }
-        </div>
-      </Wrapper>
+      </div>
     );
   }
 }

@@ -14,6 +14,18 @@ import { makeSelectAssociatedLongTermGoals } from 'containers/LongTermGoals/sele
 import MenuList from 'components/Sidebar/MenuList';
 import MenuListItem from 'components/Sidebar/MenuListItem';
 
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    zIndex: 100
+  }
+};
+
 export class ShortTermGoalsModal extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { isOpen, pendingGoal, pendingCategory, longTermGoals, onAssignGoal, onCloseModal } = this.props;
@@ -23,24 +35,27 @@ export class ShortTermGoalsModal extends React.PureComponent { // eslint-disable
         isOpen={ isOpen }
         onRequestClose={ onCloseModal }
         contentLabel="Modal"
+        style={ customStyles }
       >
-        <button onClick={ onCloseModal }>Close</button>
-        <h3>{ pendingCategory }</h3>
-        <div>{ pendingGoal }</div>
-        <MenuList>
-        {
-          longTermGoals.map((longGoal, i) => {
-            return (
-              <MenuListItem
-                key={ i }
-                onClick={ partial(onAssignGoal, pendingCategory, pendingGoal, longGoal.text) }
-              >
-                { longGoal.text }
-              </MenuListItem>
-            );
-          })
-        }
-        </MenuList>
+        <div style={ { minWidth: '300px' } }>
+          <button onClick={ onCloseModal }>Close</button>
+          <h3>{ pendingCategory }</h3>
+          <div>{ pendingGoal }</div>
+          <MenuList>
+          {
+            longTermGoals.map((longGoal, i) => {
+              return (
+                <MenuListItem
+                  key={ i }
+                  onClick={ partial(onAssignGoal, pendingCategory, pendingGoal, longGoal.text) }
+                >
+                  { longGoal.text }
+                </MenuListItem>
+              );
+            })
+          }
+          </MenuList>
+        </div>
       </Modal>
     );
   }

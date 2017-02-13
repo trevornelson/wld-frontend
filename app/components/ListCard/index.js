@@ -41,11 +41,12 @@ class ListCard extends React.PureComponent { // eslint-disable-line react/prefer
     return (
       <div>
         <div className="list-utils">
-          { isEditing ? <button onClick={ bind(this.handleSaveClick, this) }>Save</button> : <button onClick={ bind(this.handleEditClick, this) }>Edit</button> }
-          <button onClick={ partial(onDeleteList, index) }>X</button>
+          { isEditing ? <button onClick={ bind(this.handleSaveClick, this) }><span className="fa fa-floppy-o" /></button> : <button onClick={ bind(this.handleEditClick, this) }><span className="fa fa-pencil" /></button> }
+          <button onClick={ partial(onDeleteList, index) }><span className="fa fa-trash-o" /></button>
         </div>
         <input
           type="text"
+          className="list-card-title"
           defaultValue={ title }
           onClick={ bind(this.handleEditClick, this) }
           ref={ (categoryInput) => { this.categoryInput = categoryInput; } }

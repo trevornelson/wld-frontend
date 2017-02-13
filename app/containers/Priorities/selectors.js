@@ -10,8 +10,8 @@ const selectPrioritiesDomain = () => (state) => state.get('priorities');
  */
 
 const selectQuarterlyPrioritiesDomain = () => (state) => state.getIn(['priorities', 'quarterly']);
-
 const selectWeeklyPrioritiesDomain = () => (state) => state.getIn(['priorities', 'daily']);
+const selectDayOfWeek = () => (state) => state.getIn(['priorities', 'dayOfWeek']);
 
 /**
  * Default selector used by Priorities
@@ -32,9 +32,16 @@ const makeSelectWeeklyPriorities = () => createSelector(
 	(substate) => substate.toJS()
 );
 
+const makeSelectDailyPriorities = () => createSelector(
+	[ selectWeeklyPrioritiesDomain(), selectDayOfWeek() ],
+	(priorities, dayOfWeek) => priorities.get(dayOfWeek).toJS()
+);
+
 export default makeSelectPriorities;
 export {
   selectPrioritiesDomain,
+  selectDayOfWeek,
   makeSelectQuarterlyPriorities,
   makeSelectWeeklyPriorities,
+  makeSelectDailyPriorities
 };
