@@ -11,6 +11,8 @@
 
 export const DEFAULT_LOCALE = 'en';
 
+export const API = 'http://wld-backend.herokuapp.com';
+
 export const CORE_VALUE_INDEXES = ['first', 'second', 'third'];
 
 // Focused component constants
