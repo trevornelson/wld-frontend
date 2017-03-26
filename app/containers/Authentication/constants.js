@@ -11,4 +11,4 @@ export const LOGIN_FAIL = 'app/Authentication/LOGIN_FAIL';
 export const REGISTER_REQUEST = 'app/Authentication/REGISTER_REQUEST';
 export const REGISTER_SUCCESS = 'app/Authentication/REGISTER_SUCCESS';
 export const REGISTER_FAIL = 'app/Authentication/REGISTER_FAIL';
-
+export const VALIDATE_TOKEN_REQUEST = 'app/Authentication/VALIDATE_TOKEN_REQUEST';

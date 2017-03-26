@@ -14,7 +14,7 @@ import styled from 'styled-components';
 import { addGoal, assignGoal, editGoal, deleteGoal, closeModal } from './actions';
 
 import ShortTermGoalsModal from 'containers/ShortTermGoalsModal';
-import Title from 'components/Dashboard/Title';
+import Title from 'components/DashboardInner/Title';
 import ListCard from 'components/ListCard';
 import ListCardWrapper from 'components/ShortGoals/ListCardWrapper';
 

@@ -40,10 +40,26 @@ export default function createRoutes(store) {
     }, {
       path: '/dashboard',
       name: 'dashboard',
-      getComponent(location, cb) {
-        import('components/Dashboard')
-          .then(loadModule(cb))
-          .catch(errorLoading);
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/Dashboard/reducer'),
+          import('containers/Authentication/reducer'),
+          import('containers/Core/reducer'),
+          import('containers/Dashboard/sagas'),
+          import('containers/Dashboard'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([dashboardReducer, authReducer, coreReducer, sagas, component]) => {
+          injectReducer('dashboard', dashboardReducer.default);
+          injectReducer('authentication', authReducer.default);
+          injectReducer('core', coreReducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
       },
       childRoutes: [
         {

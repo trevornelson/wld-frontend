@@ -1,6 +1,6 @@
 /**
 *
-* Dashboard
+* DashboardInner
 *
 */
 
@@ -8,9 +8,9 @@ import React from 'react';
 // import styled from 'styled-components';
 
 import Sidebar from 'components/Sidebar';
-import MainContent from 'components/Dashboard/MainContent';
+import MainContent from 'components/DashboardInner/MainContent';
 
-class Dashboard extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+class DashboardInner extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <div>
@@ -23,8 +23,8 @@ class Dashboard extends React.PureComponent { // eslint-disable-line react/prefe
   }
 }
 
-Dashboard.propTypes = {
+DashboardInner.propTypes = {
 
 };
 
-export default Dashboard;
+export default DashboardInner;

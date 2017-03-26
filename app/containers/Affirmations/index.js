@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import makeSelectAffirmations from './selectors';
 
-import Title from 'components/Dashboard/Title';
+import Title from 'components/DashboardInner/Title';
 
 export class Affirmations extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {

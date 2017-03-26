@@ -11,7 +11,7 @@ import makeSelectCore from './selectors';
 
 import { changeCorePurpose, changeCoreValue, toggleCoreHelpView } from './actions';
 
-import Title from 'components/Dashboard/Title';
+import Title from 'components/DashboardInner/Title';
 import HelpView from 'components/HelpView';
 import FormView from 'components/FormView';
 import CorePurpose from 'components/Core/CorePurpose';
@@ -62,7 +62,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     onCorePurposeChange: (e) => dispatch(changeCorePurpose(e.target.value)),
-    onCoreValueChange: (valueIndex, valueText) => dispatch(changeCoreValue(valueIndex, valueText)),
+    onCoreValueChange: (valueId, userId, valueText) => dispatch(changeCoreValue(valueId, userId, valueText)),
     onToggleHelpView: (view) => dispatch(toggleCoreHelpView(view)),
     dispatch,
   };

@@ -19,6 +19,8 @@ const initialState = fromJS({
 	authenticated: false,
 	sendingRequest: false,
 	view: 'login',
+  token: localStorage.getItem('token'),
+  user: null,
 	error: null
 });
 
@@ -38,6 +40,7 @@ function authenticationReducer(state = initialState, action) {
     			sendingRequest: false,
     			authenticated: true,
     			token: action.token,
+          user: action.user,
     			error: null
     		});
     case LOGIN_FAIL:

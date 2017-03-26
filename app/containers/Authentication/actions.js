@@ -7,7 +7,8 @@
 import {
   TOGGLE_VIEW,
   LOGIN_REQUEST,
-  REGISTER_REQUEST
+  REGISTER_REQUEST,
+  VALIDATE_TOKEN_REQUEST
 } from './constants';
 
 export function toggleView(view) {
@@ -32,4 +33,10 @@ export function registerRequest(data) {
   };
 }
 
+export function validateToken(token) {
+  return {
+    type: VALIDATE_TOKEN_REQUEST,
+    token: token
+  };
+}
 

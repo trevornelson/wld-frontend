@@ -7,12 +7,14 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { browserHistory } from 'react-router';
 import styled from 'styled-components';
 import makeSelectAuthentication from './selectors';
 import {
   toggleView,
   loginRequest,
-  registerRequest
+  registerRequest,
+  validateToken
 } from './actions';
 
 import Quote from 'components/Authentication/Quote';
@@ -32,6 +34,15 @@ const Wrapper = styled.div`
 `;
 
 export class Authentication extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  componentWillMount() {
+    const { authenticated, token } = this.props.Authentication;
+    if (authenticated) {
+      browserHistory.push('/dashboard');
+    } else if (token) {
+      this.props.validateToken(token);
+    }
+  }
+
   render() {
     const {
       Authentication,
@@ -73,6 +84,7 @@ function mapDispatchToProps(dispatch) {
     onToggle: (view) => dispatch(toggleView(view)),
     onLogin: (email, password) => dispatch(loginRequest(email, password)),
     onRegister: (data) => dispatch(registerRequest(data)),
+    validateToken: (token) => dispatch(validateToken(token)),
     dispatch,
   };
 }

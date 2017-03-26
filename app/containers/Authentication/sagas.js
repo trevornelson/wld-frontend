@@ -1,46 +1,68 @@
 import { take, call, put, select, takeLatest } from 'redux-saga/effects';
-import { post } from 'axios';
+import { get } from 'lodash';
 import { browserHistory } from 'react-router';
-import { API } from 'containers/App/constants';
+import api from 'services/wld-api';
 import {
 	LOGIN_REQUEST,
 	LOGIN_SUCCESS,
 	LOGIN_FAIL,
 	REGISTER_REQUEST,
 	REGISTER_SUCCESS,
-	REGISTER_FAIL
+	REGISTER_FAIL,
+  VALIDATE_TOKEN_REQUEST
 } from './constants';
 
-// Individual exports for testing
 export function* createAccount(action) {
-	const url = `${API}/users`;
-
 	try {
-		const authentication = yield call(post, url, action.data);
+		const authentication = yield call([api, api.post], '/users', action.data);
+		const token = get(authentication, 'data.auth_token', null);
+    api.setToken(token);
 		browserHistory.push('/dashboard');
 		yield put({
 			type: REGISTER_SUCCESS,
-			token: authentication.data.auth_token
+			token: token,
+			user: get(authentication, 'data.user', null)
 		});
 	} catch(e) {
-		console.log('create account failed');
 		yield put({type: REGISTER_FAIL, error: e.message});
 	}
 }
 
+export function* validateToken(action) {
+  const data = {
+    token: action.token
+  }
+
+  try {
+    const res = yield call([api, api.post], '/validate_token', data);
+    const user = get(res, 'data.user', null);
+    browserHistory.push('/dashboard');
+    yield put({
+      type: LOGIN_SUCCESS,
+      token: action.token,
+      user: user
+    });
+  } catch(e) {
+    api.destroyToken();
+    yield put({type: LOGIN_FAIL, error: 'Expired token.'});
+  }
+}
+
 export function* authenticateCredentials(action) {
-  const url = `${API}/authenticate`;
   const data = {
   	email: action.email,
   	password: action.password
   };
 
   try {
-  	const authentication = yield call(post, url, data);
+  	const authentication = yield call([api, api.post], '/authenticate', data);
+    const token = get(authentication, 'data.auth_token', null);
+    api.setToken(token);
   	browserHistory.push('/dashboard');
   	yield put({
   		type: LOGIN_SUCCESS,
-  		token: authentication.data.auth_token
+  		token: token,
+  		user: get(authentication, 'data.user', null)
   	});
   } catch(e) {
   	yield put({type: LOGIN_FAIL, error: 'Incorrect username/password.'});
@@ -55,8 +77,13 @@ function* createAccountSaga() {
 	yield takeLatest(REGISTER_REQUEST, createAccount);
 }
 
+function* validateTokenSaga() {
+  yield takeLatest(VALIDATE_TOKEN_REQUEST, validateToken);
+}
+
 // All sagas to be loaded
 export default [
   authSaga,
-  createAccountSaga
+  createAccountSaga,
+  validateTokenSaga
 ];

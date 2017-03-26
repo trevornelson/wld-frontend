@@ -14,7 +14,7 @@ import { selectView } from './actions';
 import QuarterlyPriorities from 'containers/QuarterlyPriorities';
 import WeeklyPriorities from 'containers/WeeklyPriorities';
 import DailyPriorities from 'containers/DailyPriorities';
-import Title from 'components/Dashboard/Title';
+import Title from 'components/DashboardInner/Title';
 import Toggle from 'components/Priorities/Toggle';
 import FormView from 'components/FormView';
 

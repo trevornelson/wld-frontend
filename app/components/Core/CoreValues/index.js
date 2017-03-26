@@ -17,45 +17,43 @@ import InputLabel from 'components/InputLabel';
 
 
 class CoreValues extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  handleCoreValueChange(valueIndex, e) {
-  	this.props.handleChange(valueIndex, e.target.value);
+  handleCoreValueCreate(e) {
+    this.props.handleCreate(e.target.value);
+  }
+
+  handleCoreValueChange(valueId, userId, e) {
+  	this.props.handleChange(valueId, userId, e.target.value);
   }
 
   render() {
   	const { coreValues, handleFocus } = this.props;
-  	var alreadyRenderedEmpty = false;
 
     return (
       <div>
       	<InputLabel>Core Values:</InputLabel>
-      	{ CORE_VALUE_INDEXES.map((i) => {
-      			if (!coreValues[i]) {
-      				if (alreadyRenderedEmpty) {
-      					return null;
-      				} else {
-      					alreadyRenderedEmpty = true;
-      				}
-      			}
-      			return (<TextInput key={ i }>
-              <input
-  		      		type="text"
-  		      		key={ i }
-  		      		defaultValue={ coreValues[i] }
-  		      		placeholder="enter a core value..."
-  		      		onChange={ bind(this.handleCoreValueChange, this, i) }
-  		      		onFocus={ partial(handleFocus, CORE_VALUES_FOCUSED) }
-  		      		onBlur={ partial(handleFocus, '') }
-              />
-						</TextInput>);
-      		})
-      	}
+        {
+          coreValues.map((value) => {
+            return (
+              <TextInput key={ value.id }>
+                <input
+                  type="text"
+                  defaultValue={ value.content }
+                  placeholder="enter a core value..."
+                  onChange={ bind(this.handleCoreValueChange, this, value.id, value.user_id) }
+                  onFocus={ partial(handleFocus, CORE_VALUES_FOCUSED) }
+                  onBlur={ partial(handleFocus, '') }
+                />
+              </TextInput>
+            );
+          })
+        }
       </div>
     );
   }
 }
 
 CoreValues.propTypes = {
-	coreValues: PropTypes.object,
+	coreValues: PropTypes.array,
 	handleChange: PropTypes.func,
 	handleFocus: PropTypes.func
 };

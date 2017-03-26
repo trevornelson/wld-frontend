@@ -17,10 +17,11 @@ export function changeCorePurpose(corePurpose) {
   };
 }
 
-export function changeCoreValue(valueIndex, valueText) {
+export function changeCoreValue(valueId, userId, valueText) {
 	return {
 		type: CHANGE_CORE_VALUE,
-		valueIndex: valueIndex,
+		valueId: valueId,
+    userId: userId,
 		valueText: valueText
 	};
 }

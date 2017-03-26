@@ -11,7 +11,7 @@
 
 export const DEFAULT_LOCALE = 'en';
 
-export const API = 'http://wld-backend.herokuapp.com';
+export const API = 'http://localhost:3001';
 
 export const CORE_VALUE_INDEXES = ['first', 'second', 'third'];
 

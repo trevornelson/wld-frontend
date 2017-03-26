@@ -11,7 +11,7 @@ import makeSelectLongTermGoals from './selectors';
 
 import { editGoal, addGoal, deleteGoal } from './actions';
 
-import Title from 'components/Dashboard/Title';
+import Title from 'components/DashboardInner/Title';
 import ListCard from 'components/ListCard';
 import ListCardWrapper from 'components/LongGoals/ListCardWrapper';
 import CategoryWrapper from 'components/LongGoals/CategoryWrapper';

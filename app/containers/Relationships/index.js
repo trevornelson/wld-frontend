@@ -14,7 +14,7 @@ import {
   addRelationship, editRelationship, deleteRelationship
 } from './actions';
 
-import Title from 'components/Dashboard/Title';
+import Title from 'components/DashboardInner/Title';
 import HelpView from 'components/HelpView';
 import FormView from 'components/FormView';
 import RelationshipCategories from 'components/RelationshipCategories';
