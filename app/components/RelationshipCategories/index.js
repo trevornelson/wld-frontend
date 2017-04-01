@@ -63,7 +63,7 @@ class RelationshipCategories extends React.PureComponent { // eslint-disable-lin
 }
 
 RelationshipCategories.propTypes = {
-	categories: PropTypes.array,
+	// categories: PropTypes.array,
 	onEditCategory: PropTypes.func,
 	onDeleteCategory: PropTypes.func,
 	onAddRelationship: PropTypes.func,

@@ -54,10 +54,9 @@ class WldApi {
     );
   }
 
-  delete(path, data = {}, opts = {}) {
+  delete(path, opts = {}) {
     return axios.delete(
       this.baseURL + path,
-      data,
       this.configs(opts)
     );
   }

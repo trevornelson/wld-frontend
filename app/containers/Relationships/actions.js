@@ -20,43 +20,43 @@ export function addCategory(categoryName) {
   };
 }
 
-export function deleteCategory(index) {
+export function deleteCategory(id) {
   return {
     type: DELETE_CATEGORY,
-    categoryIndex: index
+    categoryId: id
   };
 }
 
-export function editCategory(index, categoryName) {
+export function editCategory(id, categoryName) {
   return {
     type: EDIT_CATEGORY,
-    categoryIndex: index,
-    name: categoryName
+    categoryId: id,
+    title: categoryName
   };
 }
 
-export function addRelationship(categoryIndex, relationshipName) {
+export function addRelationship(categoryId, content) {
   return {
     type: ADD_RELATIONSHIP,
-    categoryIndex: categoryIndex,
-    name: relationshipName
+    categoryId: categoryId,
+    content: content
   };
 }
 
-export function deleteRelationship(categoryIndex, index) {
+export function deleteRelationship(categoryId, relationshipId) {
   return {
     type: DELETE_RELATIONSHIP,
-    categoryIndex: categoryIndex,
-    relationshipIndex: index
+    categoryId: categoryId,
+    id: relationshipId
   };
 }
 
-export function editRelationship(categoryIndex, index, relationshipName) {
+export function editRelationship(categoryId, relationshipId, content) {
   return {
     type: EDIT_RELATIONSHIP,
-    categoryIndex: categoryIndex,
-    relationshipIndex: index,
-    name: relationshipName
+    categoryId: categoryId,
+    id: relationshipId,
+    content: content
   };
 }
 

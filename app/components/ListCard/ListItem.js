@@ -40,7 +40,7 @@ class ListItem extends React.PureComponent { // eslint-disable-line react/prefer
   }
 
   handleSave() {
-    const { isNew, categoryIndex, index } = this.props;
+    const { isNew, categoryIndex, itemId } = this.props;
 
     this.setState({
       isEditing: false
@@ -50,18 +50,18 @@ class ListItem extends React.PureComponent { // eslint-disable-line react/prefer
       this.props.onAddItem(categoryIndex, this.itemInput.value);
       this.itemInput.value = '';
     } else {
-      this.props.onEditItem(categoryIndex, index, this.itemInput.value);
+      this.props.onEditItem(categoryIndex, itemId, this.itemInput.value);
     }
   }
 
   handleDelete() {
-    const { categoryIndex, index, onDeleteItem } = this.props;
+    const { categoryIndex, itemId, onDeleteItem } = this.props;
 
-    onDeleteItem(categoryIndex, index);
+    onDeleteItem(categoryIndex, itemId);
   }
 
   render() {
-    const { text, tip, isNew, placeholderText } = this.props;
+    const { content, tip, isNew, placeholderText } = this.props;
     const { isEditing } = this.state;
     const showToolTip = !isEditing && tip;
 
@@ -75,7 +75,7 @@ class ListItem extends React.PureComponent { // eslint-disable-line react/prefer
           <TextInput>
             <input
               type="text"
-              defaultValue={ text }
+              defaultValue={ content }
               placeholder={ placeholderText }
               ref={ (itemInput) => { this.itemInput = itemInput; } }
               onFocus={ bind(this.handleEdit, this, true) }

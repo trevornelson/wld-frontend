@@ -67,9 +67,9 @@ function mapDispatchToProps(dispatch) {
     onAddCategory: (categoryName) => dispatch(addCategory(categoryName)),
     onEditCategory: (index, categoryName) => dispatch(editCategory(index, categoryName)),
     onDeleteCategory: (index) => dispatch(deleteCategory(index)),
-    onAddRelationship: (categoryIndex, text) => dispatch(addRelationship(categoryIndex, text)),
-    onEditRelationship: (categoryIndex, relationshipIndex, text) => dispatch(editRelationship(categoryIndex, relationshipIndex, text)),
-    onDeleteRelationship: (categoryIndex, relationshipIndex) => dispatch(deleteRelationship(categoryIndex, relationshipIndex)),
+    onAddRelationship: (categoryId, content) => dispatch(addRelationship(categoryId, content)),
+    onEditRelationship: (categoryId, relationshipId, content) => dispatch(editRelationship(categoryId, relationshipId, content)),
+    onDeleteRelationship: (categoryId, relationshipId) => dispatch(deleteRelationship(categoryId, relationshipId)),
     dispatch,
   };
 }

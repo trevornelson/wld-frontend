@@ -5,48 +5,57 @@
  */
 
 import { fromJS, toJS, List, Map } from 'immutable';
+import { isNull } from 'lodash';
 import {
   ADD_CATEGORY_SUCCESS,
-  DELETE_CATEGORY,
-  EDIT_CATEGORY,
-  ADD_RELATIONSHIP,
-  DELETE_RELATIONSHIP,
-  EDIT_RELATIONSHIP,
+  DELETE_CATEGORY_SUCCESS,
+  EDIT_CATEGORY_SUCCESS,
+  ADD_RELATIONSHIP_SUCCESS,
+  DELETE_RELATIONSHIP_SUCCESS,
+  EDIT_RELATIONSHIP_SUCCESS,
 } from './constants';
 import {
   FETCH_DASHBOARD_SUCCESS
 } from 'containers/Dashboard/constants';
+import { findIndexById } from 'utils/reducer-helpers';
 
 const initialState = fromJS({
 	categories: []
 });
 
 function relationshipsReducer(state = initialState, action) {
+  const categoryIndex = action.categoryId ? findIndexById(state, ['categories'], action.categoryId) : null;
+  const relationshipIndex = !isNull(categoryIndex) && action.id ? findIndexById(state, ['categories', categoryIndex, 'relationships'], action.id) : null;
+
   switch (action.type) {
     case FETCH_DASHBOARD_SUCCESS:
       return state
-        .set('categories', action.payload.relationship_categories);
+        .set('categories', fromJS(action.payload.relationship_categories));
     case ADD_CATEGORY_SUCCESS:
-      const newCategory = fromJS({name: action.name, relationships: []});
       return state
-        .update('categories', categories => categories.push(newCategory));
-    case DELETE_CATEGORY:
-      return state
-        .deleteIn(['categories', action.categoryIndex]);
-    case EDIT_CATEGORY:
-    	return state
-    		.updateIn(['categories', action.categoryIndex, 'name'], (name) => name = action.name);
-    case ADD_RELATIONSHIP:
-    	return state
-    		.updateIn(['categories', action.categoryIndex, 'relationships'], (relationships) => relationships.push(fromJS({
-          text: action.name
+        .update('categories', (categories) => categories.push(fromJS({
+            id: action.categoryId,
+            title: action.title,
+            relationships: []
         })));
-    case DELETE_RELATIONSHIP:
+    case DELETE_CATEGORY_SUCCESS:
       return state
-        .deleteIn(['categories', action.categoryIndex, 'relationships', action.relationshipIndex]);
-    case EDIT_RELATIONSHIP:
+        .deleteIn(['categories', categoryIndex]);
+    case EDIT_CATEGORY_SUCCESS:
     	return state
-    		.setIn(['categories', action.categoryIndex, 'relationships', action.relationshipIndex, 'text'], action.name);
+    		.updateIn(['categories', categoryIndex, 'title'], (title) => title = action.title);
+    case ADD_RELATIONSHIP_SUCCESS:
+    	return state
+    		.updateIn(['categories', categoryIndex, 'relationships'], (relationships) => relationships.push(fromJS({
+          id: action.relationshipId,
+          content: action.content
+        })));
+    case DELETE_RELATIONSHIP_SUCCESS:
+      return state
+        .deleteIn(['categories', categoryIndex, 'relationships', relationshipIndex]);
+    case EDIT_RELATIONSHIP_SUCCESS:
+    	return state
+    		.setIn(['categories', categoryIndex, 'relationships', relationshipIndex, 'content'], action.content);
     default:
       return state;
   }

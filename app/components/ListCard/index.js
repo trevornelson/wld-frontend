@@ -78,11 +78,11 @@ class ListCard extends React.PureComponent { // eslint-disable-line react/prefer
                 <ListItem
                   isNew={ false }
                   categoryIndex={ index }
-                  text={ get(item, 'text') }
+                  content={ get(item, 'content') }
                   tip={ get(item, 'parentGoal') }
-                  index={ i }
+                  itemId={ item.id }
                   placeholderText={ itemPlaceholder }
-                  key={ get(item, 'text') + i }
+                  key={ get(item, 'content') + i }
                   onEditItem={ onEditItem }
                   onDeleteItem={ onDeleteItem }
                 />
