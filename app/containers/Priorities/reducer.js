@@ -82,7 +82,6 @@ function prioritiesReducer(state = initialState, action) {
     	return state
         .setIn(['daily', action.dayIndex, 'priorities', action.index, 'text'], action.priority);
     case COMPLETE_DAILY:
-      console.log('what???');
       return state
         .setIn(['daily', action.dayIndex, 'priorities', action.index, 'isComplete'], true);
     case DELETE_DAILY:

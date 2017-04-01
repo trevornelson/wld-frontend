@@ -6,7 +6,7 @@
 
 import { fromJS } from 'immutable';
 import {
-  CHANGE_CORE_PURPOSE,
+  CORE_PURPOSE_SUCCESS,
   CORE_VALUE_SUCCESS,
   TOGGLE_CORE_HELP_VIEW
 } from './constants';
@@ -24,8 +24,11 @@ function coreReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_DASHBOARD_SUCCESS:
       return state
-        .set('coreValues', action.payload.values);
-    case CHANGE_CORE_PURPOSE:
+        .merge({
+          'coreValues': action.payload.values,
+          'corePurpose': action.payload.purpose
+        });
+    case CORE_PURPOSE_SUCCESS:
       return state
       	.set('corePurpose', action.corePurpose);
     case CORE_VALUE_SUCCESS:

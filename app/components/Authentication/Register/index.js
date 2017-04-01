@@ -18,7 +18,6 @@ class Register extends React.PureComponent { // eslint-disable-line react/prefer
       password: this.passwordInput.value,
       password_confirm: this.confirmInput.value
     };
-    console.log(data);
 
     this.props.onRegister(data);
   }

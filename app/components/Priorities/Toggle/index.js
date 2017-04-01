@@ -46,7 +46,6 @@ const Wrapper = styled.div`
 class PrioritiesToggle extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
   	const { view, onSelectView } = this.props;
-    console.log(view);
 
     return (
       <Wrapper>

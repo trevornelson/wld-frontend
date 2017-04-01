@@ -16,7 +16,7 @@ import {
 export function addCategory(categoryName) {
   return {
     type: ADD_CATEGORY,
-    name: categoryName
+    title: categoryName
   };
 }
 

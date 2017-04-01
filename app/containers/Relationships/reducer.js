@@ -6,13 +6,16 @@
 
 import { fromJS, toJS, List, Map } from 'immutable';
 import {
-  ADD_CATEGORY,
+  ADD_CATEGORY_SUCCESS,
   DELETE_CATEGORY,
   EDIT_CATEGORY,
   ADD_RELATIONSHIP,
   DELETE_RELATIONSHIP,
   EDIT_RELATIONSHIP,
 } from './constants';
+import {
+  FETCH_DASHBOARD_SUCCESS
+} from 'containers/Dashboard/constants';
 
 const initialState = fromJS({
 	categories: []
@@ -20,7 +23,10 @@ const initialState = fromJS({
 
 function relationshipsReducer(state = initialState, action) {
   switch (action.type) {
-    case ADD_CATEGORY:
+    case FETCH_DASHBOARD_SUCCESS:
+      return state
+        .set('categories', action.payload.relationship_categories);
+    case ADD_CATEGORY_SUCCESS:
       const newCategory = fromJS({name: action.name, relationships: []});
       return state
         .update('categories', categories => categories.push(newCategory));

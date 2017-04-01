@@ -42,21 +42,42 @@ export default function createRoutes(store) {
       name: 'dashboard',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          import('containers/Dashboard/reducer'),
+          import('containers/Affirmations/reducer'),
           import('containers/Authentication/reducer'),
           import('containers/Core/reducer'),
+          import('containers/Dashboard/reducer'),
+          import('containers/LongTermGoals/reducer'),
+          import('containers/Priorities/reducer'),
+          import('containers/Relationships/reducer'),
+          import('containers/ShortTermGoals/reducer'),
           import('containers/Dashboard/sagas'),
           import('containers/Dashboard'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([dashboardReducer, authReducer, coreReducer, sagas, component]) => {
-          injectReducer('dashboard', dashboardReducer.default);
-          injectReducer('authentication', authReducer.default);
-          injectReducer('core', coreReducer.default);
-          injectSagas(sagas.default);
-          renderRoute(component);
+        importModules.then(([
+            affirmationsReducer,
+            authReducer,
+            coreReducer,
+            dashboardReducer,
+            longTermGoalsReducer,
+            prioritiesReducer,
+            relationshipsReducer,
+            shortTermGoalsReducer,
+            sagas,
+            component
+          ]) => {
+            injectReducer('affirmations', affirmationsReducer.default);
+            injectReducer('authentication', authReducer.default);
+            injectReducer('core', coreReducer.default);
+            injectReducer('dashboard', dashboardReducer.default);
+            injectReducer('longTermGoals', longTermGoalsReducer.default);
+            injectReducer('priorities', prioritiesReducer.default);
+            injectReducer('relationships', relationshipsReducer.default);
+            injectReducer('shortTermGoals', shortTermGoalsReducer.default);
+            injectSagas(sagas.default);
+            renderRoute(component);
         });
 
         importModules.catch(errorLoading);

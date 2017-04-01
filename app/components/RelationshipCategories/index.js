@@ -36,12 +36,12 @@ class RelationshipCategories extends React.PureComponent { // eslint-disable-lin
         <Wrapper>
         { categories.map((category, index) => {
         		return (
-              <ListCardWrapper key={ category.name + index }>
+              <ListCardWrapper key={ category.title + index }>
           			<ListCard
                   isListEditable={ true }
                   canAddItems={ true }
-    	      			title={ category.name }
-    	      			index={ index }
+    	      			title={ category.title }
+    	      			index={ category.id }
     	      			items={ category.relationships }
                   itemPlaceholder="Add a relationship..."
     	      			onEditList={ onEditCategory }
