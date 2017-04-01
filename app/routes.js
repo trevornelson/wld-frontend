@@ -50,6 +50,7 @@ export default function createRoutes(store) {
           import('containers/Priorities/reducer'),
           import('containers/Relationships/reducer'),
           import('containers/ShortTermGoals/reducer'),
+          import('containers/Authentication/sagas'),
           import('containers/Dashboard/sagas'),
           import('containers/Dashboard'),
         ]);
@@ -65,7 +66,8 @@ export default function createRoutes(store) {
             prioritiesReducer,
             relationshipsReducer,
             shortTermGoalsReducer,
-            sagas,
+            authenticationSagas,
+            dashboardSagas,
             component
           ]) => {
             injectReducer('affirmations', affirmationsReducer.default);
@@ -76,7 +78,8 @@ export default function createRoutes(store) {
             injectReducer('priorities', prioritiesReducer.default);
             injectReducer('relationships', relationshipsReducer.default);
             injectReducer('shortTermGoals', shortTermGoalsReducer.default);
-            injectSagas(sagas.default);
+            injectSagas(authenticationSagas.default);
+            injectSagas(dashboardSagas.default);
             renderRoute(component);
         });
 
