@@ -1,5 +1,6 @@
-import { take, call, put, select, takeLatest } from 'redux-saga/effects';
+import { take, call, cancel, put, select, takeLatest } from 'redux-saga/effects';
 import { get } from 'lodash';
+import { LOCATION_CHANGE } from 'react-router-redux';
 import api from 'services/wld-api';
 import makeSelectAuthentication from 'containers/Authentication/selectors';
 import {
@@ -31,7 +32,9 @@ export function* addCategory(action) {
 }
 
 export function* addCategorySaga() {
-  yield takeLatest(ADD_CATEGORY, addCategory);
+  const watcher = yield takeLatest(ADD_CATEGORY, addCategory);
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
 }
 
 export function* deleteCategory(action) {
@@ -50,7 +53,9 @@ export function* deleteCategory(action) {
 }
 
 export function* deleteCategorySaga() {
-  yield takeLatest(DELETE_CATEGORY, deleteCategory);
+  const watcher = yield takeLatest(DELETE_CATEGORY, deleteCategory);
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
 }
 
 export function* editCategory(action) {
@@ -73,7 +78,9 @@ export function* editCategory(action) {
 }
 
 export function* editCategorySaga() {
-  yield takeLatest(EDIT_CATEGORY, editCategory);
+  const watcher = yield takeLatest(EDIT_CATEGORY, editCategory);
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
 }
 
 export function* addRelationship(action) {
@@ -97,7 +104,9 @@ export function* addRelationship(action) {
 };
 
 export function* addRelationshipSaga() {
-  yield takeLatest(ADD_RELATIONSHIP, addRelationship);
+  const watcher = yield takeLatest(ADD_RELATIONSHIP, addRelationship);
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
 }
 
 export function* deleteRelationship(action) {
@@ -117,7 +126,9 @@ export function* deleteRelationship(action) {
 }
 
 export function* deleteRelationshipSaga() {
-  yield takeLatest(DELETE_RELATIONSHIP, deleteRelationship);
+  const watcher = yield takeLatest(DELETE_RELATIONSHIP, deleteRelationship);
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
 }
 
 export function* editRelationship(action) {
@@ -141,7 +152,9 @@ export function* editRelationship(action) {
 }
 
 export function* editRelationshipSaga() {
-  yield takeLatest(EDIT_RELATIONSHIP, editRelationship);
+  const watcher = yield takeLatest(EDIT_RELATIONSHIP, editRelationship);
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
 }
 
 // All sagas to be loaded

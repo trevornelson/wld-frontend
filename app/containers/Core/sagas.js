@@ -1,4 +1,5 @@
-import { take, call, put, select, takeLatest } from 'redux-saga/effects';
+import { take, call, cancel, put, select, takeLatest } from 'redux-saga/effects';
+import { LOCATION_CHANGE } from 'react-router-redux';
 import api from 'services/wld-api';
 import makeSelectAuthentication from 'containers/Authentication/selectors';
 import {
@@ -48,11 +49,15 @@ export function* updateCorePurpose(action) {
 }
 
 export function* coreValueSaga() {
-	yield takeLatest(CHANGE_CORE_VALUE, updateCoreValue);
+	const watcher = yield takeLatest(CHANGE_CORE_VALUE, updateCoreValue);
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
 }
 
 export function* corePurposeSaga() {
-  yield takeLatest(CHANGE_CORE_PURPOSE, updateCorePurpose);
+  const watcher = yield takeLatest(CHANGE_CORE_PURPOSE, updateCorePurpose);
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
 }
 
 // All sagas to be loaded
