@@ -20,32 +20,33 @@ import InputLabel from 'components/InputLabel';
 export class LongTermGoals extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { onEditGoal, onAddGoal, onDeleteGoal } = this.props;
-    const { goals } = this.props.LongTermGoals;
+    const categories = this.props.LongTermGoals;
 
     return (
       <div>
         <Title>Long Term Goals</Title>
         {
-          ['Personal', 'Family', 'Business', 'Community'].map((category) => {
+          categories.map((category) => {
             return (
-              <CategoryWrapper key={ category }>
-                <InputLabel>{ category }</InputLabel>
+              <CategoryWrapper key={ category.name }>
+                <InputLabel>{ category.name }</InputLabel>
                 {
-                  ['3', '5', '10'].map((year) => {
+                  category.timeframes.map((timeframe) => {
                     return (
-                      <ListCardWrapper key={ `${category}-${year}` }>
+                      <ListCardWrapper key={ `${category.name}-${timeframe.name}` }>
                         <ListCard
                           isListEditable={ false }
                           canAddItems={ true }
-                          title={ `${year} Year` }
-                          index={ [category, year] }
-                          items={ goals[category][year] }
-                          itemPlaceholder={ `Add a ${category} Goal...` }
+                          title={ `${timeframe.name} Year` }
+                          index={ [category.name, timeframe.name] }
+                          items={ timeframe.goals }
+                          itemPlaceholder={ `Add a ${category.name} goal...` }
                           onAddItem={ onAddGoal }
                           onEditItem={ onEditGoal }
                           onDeleteItem={ onDeleteGoal }
                         />
                       </ListCardWrapper>
+
                     );
                   })
                 }
@@ -68,9 +69,9 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    onEditGoal: (category, index, goal) => dispatch(editGoal(category, index, goal)),
+    onEditGoal: (category, id, goal) => dispatch(editGoal(category, id, goal)),
     onAddGoal: (category, goal) => dispatch(addGoal(category, goal)),
-    onDeleteGoal: (category, index) => dispatch(deleteGoal(category, index)),
+    onDeleteGoal: (category, id) => dispatch(deleteGoal(category, id)),
     dispatch,
   };
 }

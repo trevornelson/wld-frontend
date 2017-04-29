@@ -6,49 +6,38 @@
 
 import { fromJS } from 'immutable';
 import {
-  EDIT_GOAL,
-  ADD_GOAL,
-  DELETE_GOAL
+  ADD_GOAL_SUCCESS,
+  EDIT_GOAL_SUCCESS,
+  DELETE_GOAL_SUCCESS
 } from './constants';
+import {
+  FETCH_DASHBOARD_SUCCESS
+} from 'containers/Dashboard/constants';
+import { findIndexById } from 'utils/reducer-helpers';
 
 const initialState = fromJS({
-	goals: {
-		Personal: {
-      '3': [],
-      '5': [],
-      '10': []
-    },
-		Family: {
-      '3': [],
-      '5': [],
-      '10': []
-    },
-		Business: {
-      '3': [],
-      '5': [],
-      '10': []
-    },
-		Community: {
-      '3': [],
-      '5': [],
-      '10': []
-    }
-	}
+	goals: []
 });
 
 function longTermGoalsReducer(state = initialState, action) {
   switch (action.type) {
-    case ADD_GOAL:
-    	return state
-    		.updateIn(['goals', action.category, action.year], (goals) => goals.push(fromJS({
-          text: action.goal
-        })));
-    case DELETE_GOAL:
-    	return state
-    		.deleteIn(['goals', action.category, action.year, action.index]);
-    case EDIT_GOAL:
+    case FETCH_DASHBOARD_SUCCESS:
       return state
-      	.setIn(['goals', action.category, action.year, action.index, 'text'], action.goal);
+        .set('goals', fromJS(action.payload.long_term_goals));
+    case ADD_GOAL_SUCCESS:
+      return state
+        .update('goals', (goals) => goals.push(fromJS({
+          id: action.id,
+          category: action.category,
+          timeframe: action.timeframe,
+          content: action.content
+        })));
+    case EDIT_GOAL_SUCCESS:
+      return state
+        .setIn(['goals', findIndexById(state, ['goals'], action.id), 'content'], action.content);
+    case DELETE_GOAL_SUCCESS:
+      return state
+        .deleteIn(['goals', findIndexById(state, ['goals'], action.id)]);
     default:
       return state;
   }

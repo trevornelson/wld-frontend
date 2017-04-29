@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import { reduce } from 'lodash';
+import { TIMEFRAMES, CATEGORIES } from './constants';
 
 /**
  * Direct selector to the longTermGoals state domain
@@ -18,7 +19,22 @@ const selectPendingShortTermGoalCategory = () => (state) => state.getIn(['shortT
 
 const makeSelectLongTermGoals = () => createSelector(
   selectLongTermGoalsDomain(),
-  (substate) => substate.toJS()
+  (substate) => {
+    const { goals } = substate.toJS();
+    return CATEGORIES.map((category) => {
+      return {
+        name: category,
+        timeframes: TIMEFRAMES.map((timeframe) => {
+          return {
+            name: timeframe,
+            goals: goals.filter((goal) => {
+              return goal.timeframe === timeframe && goal.category === category
+            })
+          };
+        })
+      };
+    });
+  }
 );
 
 const makeSelectAssociatedLongTermGoals = () => createSelector(
