@@ -4,6 +4,13 @@
  *
  */
 
+export const QUARTERLY_CATEGORIES = [
+  'Open',
+  'Ongoing',
+  'Done',
+  'Hold'
+];
+
 export const SELECT_VIEW = 'app/Priorities/SELECT_VIEW';
 
 
@@ -11,8 +18,16 @@ export const SELECT_VIEW = 'app/Priorities/SELECT_VIEW';
  * Quarterly Priorities constants
 */
 export const ADD_QUARTERLY = 'app/Priorities/ADD_QUARTERLY';
+export const ADD_QUARTERLY_SUCCESS = 'app/Priorities/ADD_QUARTERLY_SUCCESS';
+export const ADD_QUARTERLY_FAILURE = 'app/Priorities/ADD_QUARTERLY_FAILURE';
+
 export const EDIT_QUARTERLY = 'app/Priorities/EDIT_QUARTERLY';
+export const EDIT_QUARTERLY_SUCCESS = 'app/Priorities/EDIT_QUARTERLY_SUCCESS';
+export const EDIT_QUARTERLY_FAILURE = 'app/Priorities/EDIT_QUARTERLY_FAILURE';
+
 export const DELETE_QUARTERLY = 'app/Priorities/DELETE_QUARTERLY';
+export const DELETE_QUARTERLY_SUCCESS = 'app/Priorities/DELETE_QUARTERLY_SUCCESS';
+export const DELETE_QUARTERLY_FAILURE = 'app/Priorities/DELETE_QUARTERLY_FAILURE';
 
 
 /*

@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { QUARTERLY_CATEGORIES } from './constants';
 
 /**
  * Direct selector to the priorities state domain
@@ -24,7 +25,17 @@ const makeSelectPriorities = () => createSelector(
 
 const makeSelectQuarterlyPriorities = () => createSelector(
 	selectQuarterlyPrioritiesDomain(),
-	(substate) => substate.toJS()
+	(substate) => {
+    const priorities = substate.toJS();
+    return QUARTERLY_CATEGORIES.map((category) => {
+      return {
+        category: category,
+        priorities: priorities.filter((priority) => {
+          return priority.category === category;
+        })
+      };
+    });
+  }
 );
 
 const makeSelectWeeklyPriorities = () => createSelector(

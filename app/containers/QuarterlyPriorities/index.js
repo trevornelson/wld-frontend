@@ -7,6 +7,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { chunk } from 'lodash';
 import styled from 'styled-components';
 
 import { makeSelectQuarterlyPriorities } from 'containers/Priorities/selectors';
@@ -24,48 +25,41 @@ const Wrapper = styled.div`
 `;
 
 export class QuarterlyPriorities extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  render() {
+  renderRow(groups) {
     const {
-      quarterlyPriorities,
       onAddQuarterly,
       onEditQuarterly,
       onDeleteQuarterly
     } = this.props;
 
+    return groups.map(({ category, priorities }) => {
+      return (
+        <Quarterly
+          key={ category }
+          category={ category }
+          priorities={ priorities }
+          onAddQuarterly={ onAddQuarterly }
+          onEditQuarterly={ onEditQuarterly }
+          onDeleteQuarterly={ onDeleteQuarterly }
+        />
+      );
+    });
+  }
+
+  render() {
+    const { quarterlyPriorities } = this.props;
+
     return (
       <Wrapper>
-        <div>
-          <Quarterly
-            category="Open"
-            priorities={ quarterlyPriorities }
-            onAddQuarterly={ onAddQuarterly }
-            onEditQuarterly={ onEditQuarterly }
-            onDeleteQuarterly={ onDeleteQuarterly }
-          />
-          <Quarterly
-            category="Ongoing"
-            priorities={ quarterlyPriorities }
-            onAddQuarterly={ onAddQuarterly }
-            onEditQuarterly={ onEditQuarterly }
-            onDeleteQuarterly={ onDeleteQuarterly }
-          />
-        </div>
-        <div>
-          <Quarterly
-            category="Done"
-            priorities={ quarterlyPriorities }
-            onAddQuarterly={ onAddQuarterly }
-            onEditQuarterly={ onEditQuarterly }
-            onDeleteQuarterly={ onDeleteQuarterly }
-          />
-          <Quarterly
-            category="Hold"
-            priorities={ quarterlyPriorities }
-            onAddQuarterly={ onAddQuarterly }
-            onEditQuarterly={ onEditQuarterly }
-            onDeleteQuarterly={ onDeleteQuarterly }
-          />
-        </div>
+      {
+        chunk(quarterlyPriorities, 2).map((groups, index) => {
+          return (
+            <div key={ index }>
+            { this.renderRow(groups) }
+            </div>
+          );
+        })
+      }
       </Wrapper>
     );
   }

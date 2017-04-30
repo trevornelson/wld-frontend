@@ -24,28 +24,28 @@ export function selectView(view) {
   };
 }
 
-export function addQuarterly(category, priority) {
+export function addQuarterly(category, content) {
 	return {
 		type: ADD_QUARTERLY,
 		category: category,
-		priority: priority
+		content: content
 	};
 }
 
-export function editQuarterly(category, index, priority) {
+export function editQuarterly(category, id, content) {
 	return {
 		type: EDIT_QUARTERLY,
 		category: category,
-		index: index,
-		priority: priority
+		id: id,
+		content: content
 	};
 }
 
-export function deleteQuarterly(category, index) {
+export function deleteQuarterly(category, id) {
 	return {
 		type: DELETE_QUARTERLY,
 		category: category,
-		index: index
+		id: id
 	};
 }
 

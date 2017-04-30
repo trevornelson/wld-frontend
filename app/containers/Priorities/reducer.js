@@ -7,9 +7,9 @@
 import { fromJS } from 'immutable';
 import {
   SELECT_VIEW,
-  ADD_QUARTERLY,
-  EDIT_QUARTERLY,
-  DELETE_QUARTERLY,
+  ADD_QUARTERLY_SUCCESS,
+  EDIT_QUARTERLY_SUCCESS,
+  DELETE_QUARTERLY_SUCCESS,
   INCR_DOW,
   DECR_DOW,
   ADD_DAILY,
@@ -17,6 +17,10 @@ import {
   COMPLETE_DAILY,
   DELETE_DAILY,
 } from './constants';
+import {
+  FETCH_DASHBOARD_SUCCESS
+} from 'containers/Dashboard/constants';
+import { findIndexById } from 'utils/reducer-helpers';
 
 // Temporary, remove once sagas + backend are set up.
 const currentDay = new Date();
@@ -36,57 +40,61 @@ const getWeek = () => {
 };
 
 const initialState = fromJS({
-	view: 'day',
+	view: 'quarter',
   dayOfWeek: currentDay.getDay(),
-	quarterly: {
-		Open: [],
-		Ongoing: [],
-		Done: [],
-		Hold: []
-	},
+	quarterly: [],
 	daily: getWeek(),
   habits: []
 });
 
 function prioritiesReducer(state = initialState, action) {
   switch (action.type) {
+    case FETCH_DASHBOARD_SUCCESS:
+      return state
+        .merge({
+          quarterly: fromJS(action.payload.quarterly_todos),
+          daily: fromJS(action.payload.daily_todos),
+          habits: fromJS(action.payload.habits)
+        });
     case SELECT_VIEW:
       return state
       	.set('view', action.view);
-    case ADD_QUARTERLY:
-    	return state
-    		.updateIn(['quarterly', action.category], (priorities) => priorities.push(fromJS({
-          text: action.priority,
+    case ADD_QUARTERLY_SUCCESS:
+      return state
+        .update('quarterly', (priorities) => priorities.push(fromJS({
+          id: action.id,
+          category: action.category,
+          content: action.content,
           isComplete: false
         })));
-    case EDIT_QUARTERLY:
-    	return state
-    		.setIn(['quarterly', action.category, action.index, 'text'], action.priority);
-    case DELETE_QUARTERLY:
-    	return state
-    		.deleteIn(['quarterly', action.category, action.index]);
-    case INCR_DOW:
-      // TODO: What to do when incr past Saturday?
+    case EDIT_QUARTERLY_SUCCESS:
       return state
-        .update('dayOfWeek', (dow) => dow + 1);
-    case DECR_DOW:
-      // TODO: What to do when decr past Sunday?
+        .setIn(['quarterly', findIndexById(state, ['quarterly'], action.id), 'content'], action.content);
+    case DELETE_QUARTERLY_SUCCESS:
       return state
-        .update('dayOfWeek', (dow) => dow - 1);
-    case ADD_DAILY:
-    	return state
-        .updateIn(['daily', action.dayIndex, 'priorities'], (priorities) => priorities.push(fromJS({
-          text: action.priority
-        })));
-    case EDIT_DAILY:
-    	return state
-        .setIn(['daily', action.dayIndex, 'priorities', action.index, 'text'], action.priority);
-    case COMPLETE_DAILY:
-      return state
-        .setIn(['daily', action.dayIndex, 'priorities', action.index, 'isComplete'], true);
-    case DELETE_DAILY:
-    	return state
-        .deleteIn(['daily', action.dayIndex, 'priorities', action.index]);
+        .deleteIn(['quarterly', findIndexById(state, ['quarterly'], action.id)]);
+    // case INCR_DOW:
+      // // TODO: What to do when incr past Saturday?
+      // return state
+        // .update('dayOfWeek', (dow) => dow + 1);
+    // case DECR_DOW:
+      // // TODO: What to do when decr past Sunday?
+      // return state
+        // .update('dayOfWeek', (dow) => dow - 1);
+    // case ADD_DAILY:
+      // return state
+        // .updateIn(['daily', action.dayIndex, 'priorities'], (priorities) => priorities.push(fromJS({
+          // text: action.priority
+        // })));
+    // case EDIT_DAILY:
+      // return state
+        // .setIn(['daily', action.dayIndex, 'priorities', action.index, 'text'], action.priority);
+    // case COMPLETE_DAILY:
+      // return state
+        // .setIn(['daily', action.dayIndex, 'priorities', action.index, 'isComplete'], true);
+    // case DELETE_DAILY:
+      // return state
+        // .deleteIn(['daily', action.dayIndex, 'priorities', action.index]);
     default:
       return state;
   }

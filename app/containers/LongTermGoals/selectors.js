@@ -28,7 +28,7 @@ const makeSelectLongTermGoals = () => createSelector(
           return {
             name: timeframe,
             goals: goals.filter((goal) => {
-              return goal.timeframe === timeframe && goal.category === category
+              return goal.timeframe === timeframe && goal.category === category;
             })
           };
         })

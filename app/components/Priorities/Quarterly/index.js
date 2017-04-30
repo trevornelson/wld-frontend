@@ -26,7 +26,7 @@ class Quarterly extends React.PureComponent { // eslint-disable-line react/prefe
           canAddItems={ category !== 'Done' }
           title={ category }
           index={ category }
-          items={ priorities[category] }
+          items={ priorities }
           itemPlaceholder="Add a priority..."
           onAddItem={ onAddQuarterly }
           onEditItem={ onEditQuarterly }
@@ -38,7 +38,7 @@ class Quarterly extends React.PureComponent { // eslint-disable-line react/prefe
 }
 
 Quarterly.propTypes = {
-  priorities: PropTypes.object,
+  priorities: PropTypes.array,
   category: PropTypes.string,
   onAddQuarterly: PropTypes.func,
   onEditQuarterly: PropTypes.func,
