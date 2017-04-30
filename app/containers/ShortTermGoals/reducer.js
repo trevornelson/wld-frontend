@@ -6,56 +6,42 @@
 
 import { fromJS } from 'immutable';
 import {
-	ADD_GOAL,
-	ASSIGN_GOAL,
-  EDIT_GOAL,
-  DELETE_GOAL,
+	ADD_GOAL_SUCCESS,
+	ASSIGN_GOAL_SUCCESS,
+  EDIT_GOAL_SUCCESS,
+  DELETE_GOAL_SUCCESS,
   CLOSE_MODAL
 } from './constants';
+import {
+  FETCH_DASHBOARD_SUCCESS
+} from 'containers/Dashboard/constants';
+import { findIndexById } from 'utils/reducer-helpers';
 
 const initialState = fromJS({
 	isModalOpen: false,
 	pendingGoal: null,
 	pendingCategory: null,
-	goals: {
-		Personal: [],
-		Family: [],
-		Business: [],
-		Community: []
-	}
+	goals: []
 });
 
 function shortTermGoalsReducer(state = initialState, action) {
   switch (action.type) {
-    case ADD_GOAL:
+    case FETCH_DASHBOARD_SUCCESS:
       return state
-      	.merge({
-	    		isModalOpen: true,
-					pendingGoal: action.goal,
-					pendingCategory: action.category
-	    	});
-    case ASSIGN_GOAL:
-    	return state
-    		.updateIn(['goals', action.category], (goals) => goals.push(fromJS({
-    			text: action.goal,
-    			parentGoal: action.longTermGoal
-    		})))
-    		.merge({
-	  			isModalOpen: false,
-	  			pendingGoal: null,
-	  			pendingCategory: null
-	  		});
-    case EDIT_GOAL:
-    	return state;
-    case DELETE_GOAL:
-    	return state;
-    case CLOSE_MODAL:
-    	return state
-    		.merge({
-	  			isModalOpen: false,
-	  			pendingGoal: null,
-	  			pendingCategory: null
-	  		});
+        .set('goals', fromJS(action.payload.short_term_goals));
+    case ADD_GOAL_SUCCESS:
+      return state
+        .update('goals', (goals) => goals.push(fromJS({
+          id: action.id,
+          content: action.content,
+          category: action.category
+        })));
+    case EDIT_GOAL_SUCCESS:
+      return state
+        .setIn(['goals', findIndexById(state, ['goals'], action.id), 'content'], action.content);
+    case DELETE_GOAL_SUCCESS:
+      return state
+        .deleteIn(['goals', findIndexById(state, ['goals'], action.id)]);
     default:
       return state;
   }

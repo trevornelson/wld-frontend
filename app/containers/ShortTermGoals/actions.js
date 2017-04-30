@@ -12,37 +12,37 @@ import {
   CLOSE_MODAL
 } from './constants';
 
-export function addGoal(category, goal) {
+export function addGoal(category, content) {
   return {
     type: ADD_GOAL,
     category: category,
-    goal: goal
+    content: content
   };
 }
 
-export function assignGoal(category, goal, longTermGoal) {
+export function assignGoal(category, content, longTermGoal) {
   return {
     type: ASSIGN_GOAL,
     category: category,
-    goal: goal,
+    content: content,
     longTermGoal: longTermGoal
   };
 }
 
-export function editGoal(category, index, goal) {
+export function editGoal(category, id, content) {
   return {
     type: EDIT_GOAL,
     category: category,
-    index: index,
-    goal: goal
+    id: id,
+    content: content
   };
 }
 
-export function deleteGoal(category, index) {
+export function deleteGoal(category, id) {
   return {
     type: DELETE_GOAL,
     category: category,
-    index: index
+    id: id
   };
 }
 
