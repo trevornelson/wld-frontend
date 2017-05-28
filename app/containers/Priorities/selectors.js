@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
-import { QUARTERLY_CATEGORIES } from './constants';
+import { QUARTERLY_CATEGORIES, DAYS_OF_WEEK } from './constants';
+import getDateFromDow from 'utils/getDateFromDow';
 
 /**
  * Direct selector to the priorities state domain
@@ -40,12 +41,44 @@ const makeSelectQuarterlyPriorities = () => createSelector(
 
 const makeSelectWeeklyPriorities = () => createSelector(
 	selectWeeklyPrioritiesDomain(),
-	(substate) => substate.toJS()
+	(substate) => {
+    const priorities = substate.toJS();
+
+    return DAYS_OF_WEEK.map((d, i) => {
+      return {
+        name: d,
+        priorities: priorities.filter((p) => {
+          const date = new Date(p.due_date);
+
+          return date.getUTCDay() === i;
+        })
+      };
+    });
+  }
 );
 
+// TODO: Add focused week index here as well
+const makeSelectFocusedDate = () => createSelector(
+  selectDayOfWeek(),
+  (dayOfWeek) => getDateFromDow(dayOfWeek)
+);
+
+// TODO: Handle habits here?
 const makeSelectDailyPriorities = () => createSelector(
 	[ selectWeeklyPrioritiesDomain(), selectDayOfWeek() ],
-	(priorities, dayOfWeek) => priorities.get(dayOfWeek).toJS()
+	(substate, dayOfWeek) => {
+    const priorities = substate.toJS();
+
+    const filteredPriorities = priorities.filter((p) => {
+      const date = new Date(p.due_date);
+
+      return date.getUTCDay() === dayOfWeek;
+    });
+
+    return {
+      priorities: filteredPriorities
+    };
+  }
 );
 
 export default makeSelectPriorities;
@@ -54,5 +87,6 @@ export {
   selectDayOfWeek,
   makeSelectQuarterlyPriorities,
   makeSelectWeeklyPriorities,
-  makeSelectDailyPriorities
+  makeSelectDailyPriorities,
+  makeSelectFocusedDate
 };

@@ -8,7 +8,11 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { makeSelectDailyPriorities, selectDayOfWeek } from 'containers/Priorities/selectors';
+import {
+  makeSelectDailyPriorities,
+  makeSelectFocusedDate,
+  selectDayOfWeek
+} from 'containers/Priorities/selectors';
 import { incrDayOfWeek, decrDayOfWeek, addDaily, editDaily, completeDaily, deleteDaily } from 'containers/Priorities/actions';
 
 import List from 'components/Priorities/Daily/List';
@@ -16,7 +20,11 @@ import List from 'components/Priorities/Daily/List';
 export class DailyPriorities extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     const {
-      day,
+      day: {
+        priorities,
+        habits
+      },
+      date,
       dayOfWeek,
       onIncrDayOfWeek,
       onDecrDayOfWeek,
@@ -25,7 +33,7 @@ export class DailyPriorities extends React.PureComponent { // eslint-disable-lin
       onCompleteDaily,
       onDeleteDaily
     } = this.props;
-    const { date, priorities, habits } = day;
+
 
     return (
       <div>
@@ -52,18 +60,19 @@ DailyPriorities.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  day: makeSelectDailyPriorities()
+  day: makeSelectDailyPriorities(),
+  date: makeSelectFocusedDate()
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     onIncrDayOfWeek: () => dispatch(incrDayOfWeek()),
     onDecrDayOfWeek: () => dispatch(decrDayOfWeek()),
-    onAddDaily: (dailyIndex, priority) => dispatch(addDaily(dailyIndex, priority)),
-    onEditDaily: (dailyIndex, index, priority) => dispatch(editDaily(dailyIndex, index, priority)),
-    onCompleteDaily: (dailyIndex, index) => dispatch(completeDaily(dailyIndex, index)),
-    onDeleteDaily: (dailyIndex, index) => dispatch(deleteDaily(dailyIndex, index)),
-    dispatch,
+    onAddDaily: (dueDate, content) => dispatch(addDaily(dueDate, content)),
+    onEditDaily: (_dayOfWeek, id, content) => dispatch(editDaily(id, content)),
+    onCompleteDaily: (id, completed) => dispatch(completeDaily(id, completed)),
+    onDeleteDaily: (_dayOfWeek, id) => dispatch(deleteDaily(id)),
+    dispatch
   };
 }
 

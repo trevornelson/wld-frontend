@@ -53,7 +53,7 @@ export function incrDayOfWeek() {
 	return {
 		type: INCR_DOW
 	};
-};
+}
 
 export function decrDayOfWeek() {
 	return {
@@ -61,35 +61,33 @@ export function decrDayOfWeek() {
 	};
 }
 
-export function addDaily(dayIndex, priority) {
-	return {
-		type: ADD_DAILY,
-		dayIndex: dayIndex,
-		priority: priority
-	};
+export function addDaily(due_date, content) {
+  return {
+    type: ADD_DAILY,
+    due_date: due_date,
+    content: content
+  };
 }
 
-export function editDaily(dayIndex, index, priority) {
+export function editDaily(id, content) {
 	return {
 		type: EDIT_DAILY,
-		dayIndex: dayIndex,
-		index: index,
-		priority: priority
+		id: id,
+		content: content
 	};
 }
 
-export function completeDaily(dayIndex, index) {
+export function completeDaily(id, completed) {
 	return {
 		type: COMPLETE_DAILY,
-		dayIndex: dayIndex,
-		index: index
+		id: id,
+    completed: completed
 	};
 }
 
-export function deleteDaily(dayIndex, index) {
+export function deleteDaily(id) {
 	return {
 		type: DELETE_DAILY,
-		dayIndex: dayIndex,
-		index: index
+		id: id
 	};
 }

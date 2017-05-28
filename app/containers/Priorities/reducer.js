@@ -12,10 +12,10 @@ import {
   DELETE_QUARTERLY_SUCCESS,
   INCR_DOW,
   DECR_DOW,
-  ADD_DAILY,
-  EDIT_DAILY,
-  COMPLETE_DAILY,
-  DELETE_DAILY,
+  ADD_DAILY_SUCCESS,
+  EDIT_DAILY_SUCCESS,
+  COMPLETE_DAILY_SUCCESS,
+  DELETE_DAILY_SUCCESS,
 } from './constants';
 import {
   FETCH_DASHBOARD_SUCCESS
@@ -43,7 +43,7 @@ const initialState = fromJS({
 	view: 'quarter',
   dayOfWeek: currentDay.getDay(),
 	quarterly: [],
-	daily: getWeek(),
+	daily: [],
   habits: []
 });
 
@@ -53,7 +53,7 @@ function prioritiesReducer(state = initialState, action) {
       return state
         .merge({
           quarterly: fromJS(action.payload.quarterly_todos),
-          daily: fromJS(action.payload.daily_todos),
+          daily: fromJS(action.payload.recent_todos),
           habits: fromJS(action.payload.habits)
         });
     case SELECT_VIEW:
@@ -73,28 +73,31 @@ function prioritiesReducer(state = initialState, action) {
     case DELETE_QUARTERLY_SUCCESS:
       return state
         .deleteIn(['quarterly', findIndexById(state, ['quarterly'], action.id)]);
-    // case INCR_DOW:
-      // // TODO: What to do when incr past Saturday?
-      // return state
-        // .update('dayOfWeek', (dow) => dow + 1);
-    // case DECR_DOW:
-      // // TODO: What to do when decr past Sunday?
-      // return state
-        // .update('dayOfWeek', (dow) => dow - 1);
-    // case ADD_DAILY:
-      // return state
-        // .updateIn(['daily', action.dayIndex, 'priorities'], (priorities) => priorities.push(fromJS({
-          // text: action.priority
-        // })));
-    // case EDIT_DAILY:
-      // return state
-        // .setIn(['daily', action.dayIndex, 'priorities', action.index, 'text'], action.priority);
-    // case COMPLETE_DAILY:
-      // return state
-        // .setIn(['daily', action.dayIndex, 'priorities', action.index, 'isComplete'], true);
-    // case DELETE_DAILY:
-      // return state
-        // .deleteIn(['daily', action.dayIndex, 'priorities', action.index]);
+    case INCR_DOW:
+      // TODO: What to do when incr past Saturday?
+      return state
+        .update('dayOfWeek', (dow) => dow + 1);
+    case DECR_DOW:
+      // TODO: What to do when decr past Sunday?
+      return state
+        .update('dayOfWeek', (dow) => dow - 1);
+    case ADD_DAILY_SUCCESS:
+      return state
+        .update('daily', (priorities) => priorities.push(fromJS({
+          id: action.id,
+          content: action.content,
+          due_date: action.due_date,
+          completed: action.completed
+        })));
+    case EDIT_DAILY_SUCCESS:
+      return state
+        .setIn(['daily', findIndexById(state, ['daily'], action.id), 'content'], action.content);
+    case COMPLETE_DAILY_SUCCESS:
+      return state
+        .setIn(['daily', findIndexById(state, ['daily'], action.id), 'completed'], action.completed);
+    case DELETE_DAILY_SUCCESS:
+      return state
+        .deleteIn(['daily', findIndexById(state, ['daily'], action.id)]);
     default:
       return state;
   }
