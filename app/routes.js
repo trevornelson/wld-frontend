@@ -47,6 +47,7 @@ export default function createRoutes(store) {
           import('containers/Core/reducer'),
           import('containers/Dashboard/reducer'),
           import('containers/LongTermGoals/reducer'),
+          import('containers/Habits/reducer'),
           import('containers/Priorities/reducer'),
           import('containers/Relationships/reducer'),
           import('containers/ShortTermGoals/reducer'),
@@ -63,6 +64,7 @@ export default function createRoutes(store) {
             coreReducer,
             dashboardReducer,
             longTermGoalsReducer,
+            habitsReducer,
             prioritiesReducer,
             relationshipsReducer,
             shortTermGoalsReducer,
@@ -75,6 +77,7 @@ export default function createRoutes(store) {
             injectReducer('core', coreReducer.default);
             injectReducer('dashboard', dashboardReducer.default);
             injectReducer('longTermGoals', longTermGoalsReducer.default);
+            injectReducer('habits', habitsReducer.default);
             injectReducer('priorities', prioritiesReducer.default);
             injectReducer('relationships', relationshipsReducer.default);
             injectReducer('shortTermGoals', shortTermGoalsReducer.default);
@@ -160,6 +163,26 @@ export default function createRoutes(store) {
 
             importModules.then(([reducer, sagas, component]) => {
               injectReducer('shortTermGoals', reducer.default);
+              injectSagas(sagas.default);
+              renderRoute(component);
+            });
+
+            importModules.catch(errorLoading);
+          }
+        }, {
+          path: '/dashboard/habits',
+          name: 'habits',
+          getComponent(nextState, cb) {
+            const importModules = Promise.all([
+              import('containers/Habits/reducer'),
+              import('containers/Habits/sagas'),
+              import('containers/Habits'),
+            ]);
+
+            const renderRoute = loadModule(cb);
+
+            importModules.then(([reducer, sagas, component]) => {
+              injectReducer('habits', reducer.default);
               injectSagas(sagas.default);
               renderRoute(component);
             });

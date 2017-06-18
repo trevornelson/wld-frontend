@@ -48,7 +48,6 @@ export class WeeklyPriorities extends React.PureComponent { // eslint-disable-li
 
   render() {
     const { weeklyPriorities } = this.props;
-    console.log(weeklyPriorities);
 
     return (
       <div>

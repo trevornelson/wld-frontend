@@ -31,6 +31,9 @@ class Sidebar extends React.PureComponent {
 	    			<Link to={ `/dashboard/short-term` }>Short Term Goals</Link>
 	    		</MenuListItem>
 	    		<MenuListItem>
+	    			<Link to={ `/dashboard/habits` }>Habits</Link>
+	    		</MenuListItem>
+	    		<MenuListItem>
 	    			<Link to={ `/dashboard/priorities` }>Priorities</Link>
 	    		</MenuListItem>
 	    		<MenuListItem>
