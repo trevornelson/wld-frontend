@@ -21,6 +21,7 @@ class List extends React.PureComponent { // eslint-disable-line react/prefer-sta
     super(props);
 
     this.handleAddDaily = this.handleAddDaily.bind(this);
+    this.handleHabitCompletedToggle = this.handleHabitCompletedToggle.bind(this);
   }
 
   formatDate(date) {
@@ -40,6 +41,18 @@ class List extends React.PureComponent { // eslint-disable-line react/prefer-sta
     this.props.onAddDaily(dueDate, content);
   }
 
+  handleHabitCompletedToggle(id, toggleTo, parentId) {
+    const { dayOfWeek, onCompleteHabit, onUncompleteHabit } = this.props;
+
+    if (id && !toggleTo) {
+      onUncompleteHabit(id);
+    } else {
+      const dueDate = getDateFromDow(dayOfWeek);
+
+      onCompleteHabit(parentId, toggleTo, dueDate);
+    }
+  }
+
   render() {
   	const {
       categoryIndex,
@@ -50,9 +63,25 @@ class List extends React.PureComponent { // eslint-disable-line react/prefer-sta
       onEditDaily,
       onCompleteDaily,
       onDeleteDaily,
+      onCompleteHabit,
       onIncrDayOfWeek,
       onDecrDayOfWeek
     } = this.props;
+
+    const habitItems = habits.map((habit, i) => {
+      return (
+        <ListItem
+          key={ `habit-${i}-${dayOfWeek}` }
+          completeable={true}
+          categoryIndex={ categoryIndex }
+          itemId={ habit.id }
+          parentId={ habit.habit_id }
+          content={ habit.content }
+          completed={ habit.completed }
+          onCompleteItem={ this.handleHabitCompletedToggle }
+        />
+      );
+    });
 
     const priorityItems = priorities.map((priority, i) => {
       return (
@@ -78,6 +107,7 @@ class List extends React.PureComponent { // eslint-disable-line react/prefer-sta
           onIncr={ onIncrDayOfWeek }
           onDecr={ onDecrDayOfWeek }
         />
+        { habitItems }
         { priorityItems }
         { priorityItems.length < 3 ?
           <ListItem

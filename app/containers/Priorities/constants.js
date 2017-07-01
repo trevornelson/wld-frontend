@@ -61,3 +61,11 @@ export const COMPLETE_DAILY_FAILURE = 'app/Priorities/COMPLETE_DAILY_FAILURE';
 export const DELETE_DAILY = 'app/Priorities/DELETE_DAILY';
 export const DELETE_DAILY_SUCCESS = 'app/Priorities/DELETE_DAILY_SUCCESS';
 export const DELETE_DAILY_FAILURE = 'app/Priorities/DELETE_DAILY_FAILURE';
+
+export const COMPLETE_HABIT = 'app/Priorities/COMPLETE_HABIT';
+export const COMPLETE_HABIT_SUCCESS = 'app/Priorities/COMPLETE_HABIT_SUCCESS';
+export const COMPLETE_HABIT_FAILURE = 'app/Priorities/COMPLETE_HABIT_FAILURE';
+
+export const UNCOMPLETE_HABIT = 'app/Priorities/UNCOMPLETE_HABIT';
+export const UNCOMPLETE_HABIT_SUCCESS = 'app/Priorities/UNCOMPLETE_HABIT_SUCCESS';
+export const UNCOMPLETE_HABIT_FAILURE = 'app/Priorities/UNCOMPLETE_HABIT_FAILURE';

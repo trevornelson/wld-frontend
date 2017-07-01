@@ -13,7 +13,16 @@ import {
   makeSelectFocusedDate,
   selectDayOfWeek
 } from 'containers/Priorities/selectors';
-import { incrDayOfWeek, decrDayOfWeek, addDaily, editDaily, completeDaily, deleteDaily } from 'containers/Priorities/actions';
+import {
+  incrDayOfWeek,
+  decrDayOfWeek,
+  addDaily,
+  editDaily,
+  completeDaily,
+  deleteDaily,
+  completeHabit,
+  uncompleteHabit
+} from 'containers/Priorities/actions';
 
 import List from 'components/Priorities/Daily/List';
 
@@ -31,9 +40,10 @@ export class DailyPriorities extends React.PureComponent { // eslint-disable-lin
       onAddDaily,
       onEditDaily,
       onCompleteDaily,
-      onDeleteDaily
+      onDeleteDaily,
+      onCompleteHabit,
+      onUncompleteHabit
     } = this.props;
-
 
     return (
       <div>
@@ -46,6 +56,8 @@ export class DailyPriorities extends React.PureComponent { // eslint-disable-lin
           onAddDaily={ onAddDaily }
           onEditDaily={ onEditDaily }
           onCompleteDaily={ onCompleteDaily }
+          onCompleteHabit={ onCompleteHabit }
+          onUncompleteHabit={ onUncompleteHabit }
           onDeleteDaily={ onDeleteDaily }
           onIncrDayOfWeek={ onIncrDayOfWeek }
           onDecrDayOfWeek={ onDecrDayOfWeek }
@@ -72,6 +84,8 @@ function mapDispatchToProps(dispatch) {
     onEditDaily: (_dayOfWeek, id, content) => dispatch(editDaily(id, content)),
     onCompleteDaily: (id, completed) => dispatch(completeDaily(id, completed)),
     onDeleteDaily: (_dayOfWeek, id) => dispatch(deleteDaily(id)),
+    onCompleteHabit: (id, completed, dueDate) => dispatch(completeHabit(id, completed, dueDate)),
+    onUncompleteHabit: (id) => dispatch(uncompleteHabit(id)),
     dispatch
   };
 }

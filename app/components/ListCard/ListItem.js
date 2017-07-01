@@ -64,11 +64,11 @@ class ListItem extends React.PureComponent { // eslint-disable-line react/prefer
   }
 
   handleToggleComplete() {
-    const { itemId, completed, onCompleteItem } = this.props;
+    const { itemId, parentId, completed, categoryIndex, onCompleteItem } = this.props;
 
     const toggleTo = completed !== true;
 
-    onCompleteItem(itemId, toggleTo);
+    onCompleteItem(itemId, toggleTo, parentId);
   }
 
   renderPreInputIcon() {

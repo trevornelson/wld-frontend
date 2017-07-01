@@ -16,6 +16,8 @@ import {
   EDIT_DAILY_SUCCESS,
   COMPLETE_DAILY_SUCCESS,
   DELETE_DAILY_SUCCESS,
+  COMPLETE_HABIT_SUCCESS,
+  UNCOMPLETE_HABIT_SUCCESS
 } from './constants';
 import {
   FETCH_DASHBOARD_SUCCESS
@@ -24,20 +26,6 @@ import { findIndexById } from 'utils/reducer-helpers';
 
 // Temporary, remove once sagas + backend are set up.
 const currentDay = new Date();
-const getWeek = () => {
-  var output = [];
-  var today = new Date();
-  var d = new Date(today.setDate(today.getDate() - today.getDay()));
-  for (var i = 0; i < 7; i++ ) {
-    output.push({
-      date: new Date(d.getFullYear(), d.getMonth(), d.getDate()),
-      priorities: [],
-      habits: [false, false, false, false]
-    });
-    d.setDate(d.getDate() + 1);
-  }
-  return output;
-};
 
 const initialState = fromJS({
 	view: 'quarter',
@@ -54,7 +42,7 @@ function prioritiesReducer(state = initialState, action) {
         .merge({
           quarterly: fromJS(action.payload.quarterly_todos),
           daily: fromJS(action.payload.recent_todos),
-          habits: fromJS(action.payload.habits)
+          habits: fromJS(action.payload.habit_todos)
         });
     case SELECT_VIEW:
       return state
@@ -98,6 +86,17 @@ function prioritiesReducer(state = initialState, action) {
     case DELETE_DAILY_SUCCESS:
       return state
         .deleteIn(['daily', findIndexById(state, ['daily'], action.id)]);
+    case COMPLETE_HABIT_SUCCESS:
+      return state
+        .update('habits', (habits) => habits.push(fromJS({
+          id: action.id,
+          habit_id: action.habit_id,
+          due_date: action.due_date,
+          completed: action.completed
+        })));
+    case UNCOMPLETE_HABIT_SUCCESS:
+      return state
+        .deleteIn(['habits', findIndexById(state, ['habits'], action.id)]);
     default:
       return state;
   }

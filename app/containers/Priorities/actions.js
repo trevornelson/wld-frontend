@@ -14,7 +14,9 @@ import {
   ADD_DAILY,
   EDIT_DAILY,
   COMPLETE_DAILY,
-  DELETE_DAILY
+  DELETE_DAILY,
+  COMPLETE_HABIT,
+  UNCOMPLETE_HABIT
 } from './constants';
 
 export function selectView(view) {
@@ -90,4 +92,20 @@ export function deleteDaily(id) {
 		type: DELETE_DAILY,
 		id: id
 	};
+}
+
+export function completeHabit(id, completed, due_date) {
+  return {
+    type: COMPLETE_HABIT,
+    id: id,
+    due_date: due_date,
+    completed: completed
+  };
+}
+
+export function uncompleteHabit(id) {
+  return {
+    type: UNCOMPLETE_HABIT,
+    id: id
+  };
 }

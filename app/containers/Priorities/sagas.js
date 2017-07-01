@@ -10,7 +10,9 @@ import {
   ADD_DAILY, ADD_DAILY_SUCCESS, ADD_DAILY_FAILURE,
   EDIT_DAILY, EDIT_DAILY_SUCCESS, EDIT_DAILY_FAILURE,
   COMPLETE_DAILY, COMPLETE_DAILY_SUCCESS, COMPLETE_DAILY_FAILURE,
-  DELETE_DAILY, DELETE_DAILY_SUCCESS, DELETE_DAILY_FAILURE
+  DELETE_DAILY, DELETE_DAILY_SUCCESS, DELETE_DAILY_FAILURE,
+  COMPLETE_HABIT, COMPLETE_HABIT_SUCCESS, COMPLETE_HABIT_FAILURE,
+  UNCOMPLETE_HABIT, UNCOMPLETE_HABIT_SUCCESS, UNCOMPLETE_HABIT_FAILURE
 } from './constants';
 
 /**
@@ -210,6 +212,62 @@ export function* deleteDailySaga() {
   yield cancel(watcher);
 }
 
+/**
+ * Complete Habit
+ */
+export function* completeHabit(action) {
+  const auth = yield select(makeSelectAuthentication());
+  const urlPath = `/users/${auth.user.id}/habit_todos`;
+  const data = {
+    completed: action.completed,
+    habit_id: action.id,
+    due_date: action.due_date
+  };
+
+  try {
+    const habit = yield call([api, api.post], urlPath, data);
+    yield put({
+      type: COMPLETE_HABIT_SUCCESS,
+      id: get(habit, 'data.id', null),
+      habit_id: get(habit, 'data.habit_id', null),
+      due_date: get(habit, 'data.due_date', null),
+      completed: get(habit, 'data.completed', false)
+    });
+  } catch(e) {
+    yield put({type: COMPLETE_HABIT_FAILURE, error: e.message});
+  }
+}
+
+export function* completeHabitSaga() {
+  const watcher = yield takeLatest(COMPLETE_HABIT, completeHabit);
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
+}
+
+/**
+ * Uncomplete Habit
+ */
+export function* uncompleteHabit(action) {
+  const auth = yield select(makeSelectAuthentication());
+  const urlPath = `/users/${auth.user.id}/habit_todos/${action.id}`;
+
+  try {
+    const response = yield call([api, api.delete], urlPath);
+    yield put({
+      type: UNCOMPLETE_HABIT_SUCCESS,
+      id: action.id
+    });
+  } catch(e) {
+    yield put({type: UNCOMPLETE_HABIT_FAILURE, error: e.message});
+  }
+}
+
+export function* uncompleteHabitSaga() {
+  const watcher = yield takeLatest(UNCOMPLETE_HABIT, uncompleteHabit);
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
+}
+
 
 export default [
   addQuarterlySaga,
@@ -218,5 +276,7 @@ export default [
   addDailySaga,
   editDailySaga,
   deleteDailySaga,
-  completeDailySaga
+  completeDailySaga,
+  completeHabitSaga,
+  uncompleteHabitSaga
 ];
