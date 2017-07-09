@@ -5,7 +5,6 @@
  */
 
 export const S3_UPLOAD = 'app/Affirmations/S3_UPLOAD';
-export const S3_UPLOAD_SUCCESS = 'app/Affirmations/S3_UPLOAD_SUCCESS';
 export const S3_UPLOAD_FAILURE = 'app/Affirmations/S3_UPLOAD_FAILURE';
 
 export const ADD_VISUALIZATION = 'app/Affirmations/ADD_VISUALIZATION';

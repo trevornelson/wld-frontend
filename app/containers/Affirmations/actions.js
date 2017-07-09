@@ -35,15 +35,18 @@ export function addVisualization(s3Url) {
   };
 }
 
-export function editVisualization() {
+export function editVisualization(id, caption) {
   return {
-    type: EDIT_VISUALIZATION
+    type: EDIT_VISUALIZATION,
+    id,
+    caption
   };
 }
 
-export function deleteVisualization() {
+export function deleteVisualization(id) {
   return {
-    type: DELETE_VISUALIZATION
+    type: DELETE_VISUALIZATION,
+    id
   };
 }
 

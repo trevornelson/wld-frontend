@@ -13,12 +13,6 @@ class WldApi {
     return WldApi.instance;
   }
 
-  getSignedS3Url(userId) {
-    if (userId) {
-      return this.baseURL + `/users/${userId}/presigned_url`;
-    }
-  }
-
   setToken(token) {
     localStorage.setItem('token', token);
     this.token = token;

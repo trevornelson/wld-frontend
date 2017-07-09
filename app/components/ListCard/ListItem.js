@@ -104,6 +104,7 @@ class ListItem extends React.PureComponent { // eslint-disable-line react/prefer
   render() {
     const { completeable, content, completed, tip, isNew, placeholderText } = this.props;
     const { isEditing } = this.state;
+    console.log(this.props.itemId);
 
     return (
       <Wrapper>

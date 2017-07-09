@@ -7,7 +7,7 @@ import {
   ADD_AFFIRMATION, ADD_AFFIRMATION_SUCCESS, ADD_AFFIRMATION_FAILURE,
   EDIT_AFFIRMATION, EDIT_AFFIRMATION_SUCCESS, EDIT_AFFIRMATION_FAILURE,
   DELETE_AFFIRMATION, DELETE_AFFIRMATION_SUCCESS, DELETE_AFFIRMATION_FAILURE
-} from './constants';
+} from '../constants';
 
 export function* addAffirmation(action) {
   const auth = yield select(makeSelectAuthentication());
@@ -81,9 +81,3 @@ export function* deleteAffirmationSaga() {
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
 }
-
-export default [
-  addAffirmationSaga,
-  editAffirmationSaga,
-  deleteAffirmationSaga
-];
