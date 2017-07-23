@@ -1,4 +1,5 @@
 import { injectGlobal } from 'styled-components';
+import { colors } from 'utils/styleHelpers';
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
@@ -10,6 +11,7 @@ injectGlobal`
 
   body {
     font-family: 'Noto Sans', sans-serif;
+    background-color: ${ colors.background.light };
   }
 
   body.fontLoaded {

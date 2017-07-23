@@ -6,10 +6,15 @@
 
 import React, { PropTypes } from 'react';
 import { bind } from 'lodash';
+import styled from 'styled-components';
 
 import InputLabel from 'components/InputLabel';
 import TextInput from 'components/TextInput';
 
+const Wrapper = styled.div`
+  width: 75%;
+  margin: 10px auto;
+`;
 
 class AddCategory extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   handleAddClick() {
@@ -20,7 +25,7 @@ class AddCategory extends React.PureComponent { // eslint-disable-line react/pre
 
   render() {
     return (
-      <div>
+      <Wrapper>
         <TextInput>
         	<input
         		placeholder="Add a category"
@@ -30,7 +35,7 @@ class AddCategory extends React.PureComponent { // eslint-disable-line react/pre
             <button onClick={ bind(this.handleAddClick, this) }><span className="fa fa-plus" /></button>
           </div>
         </TextInput>
-      </div>
+      </Wrapper>
     );
   }
 }

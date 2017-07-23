@@ -7,7 +7,7 @@
 import React, { PropTypes } from 'react';
 
 import ListCard from 'components/ListCard';
-import ListCardWrapper from 'components/Priorities/Quarterly/ListCardWrapper';
+import ListCardWrapper from 'components/ListCard/ListCardWrapper';
 
 class Quarterly extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {

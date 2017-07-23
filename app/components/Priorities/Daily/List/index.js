@@ -13,7 +13,11 @@ import ListItem from 'components/ListCard/ListItem';
 import DayToggle from 'components/Priorities/Daily/DayToggle';
 
 const Wrapper = styled.div`
-  width: 300px;
+  width: 100%;
+
+  h3 {
+    text-align: center;
+  }
 `;
 
 class List extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function

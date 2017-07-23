@@ -12,10 +12,13 @@ import makeSelectLongTermGoals from './selectors';
 import { editGoal, addGoal, deleteGoal } from './actions';
 
 import Title from 'components/DashboardInner/Title';
+import CategoryWrapper from 'components/LongGoals/CategoryWrapper';
 import ListCard from 'components/ListCard';
 import ListCardWrapper from 'components/LongGoals/ListCardWrapper';
-import CategoryWrapper from 'components/LongGoals/CategoryWrapper';
 import InputLabel from 'components/InputLabel';
+import HelpView from 'components/HelpView';
+import FormView from 'components/FormView';
+import LongTermHelp from 'components/HelpView/LongTermHelp';
 
 export class LongTermGoals extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -24,36 +27,41 @@ export class LongTermGoals extends React.PureComponent { // eslint-disable-line 
 
     return (
       <div>
-        <Title>Long Term Goals</Title>
-        {
-          categories.map((category) => {
-            return (
-              <CategoryWrapper key={ category.name }>
-                <InputLabel>{ category.name }</InputLabel>
-                {
-                  category.timeframes.map((timeframe) => {
-                    return (
-                      <ListCardWrapper key={ `${category.name}-${timeframe.name}` }>
-                        <ListCard
-                          isListEditable={ false }
-                          canAddItems={ true }
-                          title={ `${timeframe.name} Year` }
-                          index={ [category.name, timeframe.name] }
-                          items={ timeframe.goals }
-                          itemPlaceholder={ `Add a ${category.name} goal...` }
-                          onAddItem={ onAddGoal }
-                          onEditItem={ onEditGoal }
-                          onDeleteItem={ onDeleteGoal }
-                        />
-                      </ListCardWrapper>
+        <FormView>
+          <Title>Long Term Goals</Title>
+          {
+            categories.map((category) => {
+              return (
+                <CategoryWrapper key={ category.name }>
+                  <InputLabel>{ category.name }</InputLabel>
+                  {
+                    category.timeframes.map((timeframe) => {
+                      return (
+                        <ListCardWrapper key={ `${category.name}-${timeframe.name}` }>
+                          <ListCard
+                            isListEditable={ false }
+                            canAddItems={ true }
+                            title={ `${timeframe.name} Year` }
+                            index={ [category.name, timeframe.name] }
+                            items={ timeframe.goals }
+                            itemPlaceholder={ `Add a ${category.name} goal...` }
+                            onAddItem={ onAddGoal }
+                            onEditItem={ onEditGoal }
+                            onDeleteItem={ onDeleteGoal }
+                          />
+                        </ListCardWrapper>
 
-                    );
-                  })
-                }
-              </CategoryWrapper>
-            );
-          })
-        }
+                      );
+                    })
+                  }
+                </CategoryWrapper>
+              );
+            })
+          }
+        </FormView>
+        <HelpView>
+          <LongTermHelp />
+        </HelpView>
       </div>
     );
   }

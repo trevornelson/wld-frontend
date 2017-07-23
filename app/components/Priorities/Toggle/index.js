@@ -7,39 +7,40 @@
 import React, { PropTypes } from 'react';
 import { partial } from 'lodash';
 import styled from 'styled-components';
+import { colors } from 'utils/styleHelpers';
 
 const Wrapper = styled.div`
   display: inline-block;
-  background: #DADFE1;
-  box-shadow: 2px 2px 2px #6C7A89;
+  width: 100%;
+  margin: 15px 0px;
   border-radius: 3px;
-  color: #494949;
+  color: ${ colors.text.body };
 
   button {
-    width: 70px;
+    width: 33%;
     text-align: center;
   }
 
   :first-child {
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
-    border: 1px solid #494949;
+    border: 1px solid ${ colors.darkBlue };
   }
 
   :nth-child(2) {
-    border-top: 1px solid #494949;
-    border-bottom: 1px solid #494949;
+    border-top: 1px solid ${ colors.darkBlue };
+    border-bottom: 1px solid ${ colors.darkBlue };
   }
 
   :last-child {
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
-    border: 1px solid #494949;
+    border: 1px solid ${ colors.darkBlue };
   }
 
   .selected {
-    background: #ABB7B7;
-    box-shadow: inset 3px 3px 3px #494949;
+    color: ${ colors.background.light };
+    background: ${ colors.darkBlue };
   }
 `
 

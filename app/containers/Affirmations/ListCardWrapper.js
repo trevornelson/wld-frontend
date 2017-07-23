@@ -1,14 +1,12 @@
 import styled from 'styled-components';
+import { colors } from 'utils/styleHelpers';
 
 const ListCardWrapper = styled.div`
 	display: inline-block;
-	height: 200px;
-	width: 200px;
+	width: 100%;
 	margin: 10px;
 	padding: 0px 10px;
-	background: white;
-	border-radius: 4px;
-	box-shadow: 2px 2px 2px #6C7A89;
+	background: ${ colors.background.light };
 
 	h3 {
 		display: inline-block;
@@ -31,6 +29,8 @@ const ListCardWrapper = styled.div`
 	}
 
   input {
+    font-size: 18px;
+    font-family: 'Oswald', sans-serif;
     border-bottom: none;
   }
 

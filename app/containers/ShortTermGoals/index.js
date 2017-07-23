@@ -6,6 +6,7 @@
 
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { chunk } from 'lodash';
 import Modal from 'react-modal';
 import { createStructuredSelector } from 'reselect';
 import makeSelectShortTermGoals from './selectors';
@@ -16,52 +17,73 @@ import { addGoal, assignGoal, editGoal, deleteGoal, closeModal } from './actions
 import ShortTermGoalsModal from 'containers/ShortTermGoalsModal';
 import Title from 'components/DashboardInner/Title';
 import ListCard from 'components/ListCard';
-import ListCardWrapper from 'components/ShortGoals/ListCardWrapper';
-
-const Container = styled.div`
-  display: inline-block;
-  background: #DADFE1;
-  padding: 10px;
-  border-radius: 3px;
-  box-shadow: 2px 2px 2px #6C7A89;
-`;
+import ListCardWrapper from 'components/LongGoals/ListCardWrapper';
+import CategoryWrapper from 'components/LongGoals/CategoryWrapper';
+import HelpView from 'components/HelpView';
+import FormView from 'components/FormView';
+import ShortTermHelp from 'components/HelpView/ShortTermHelp';
+import InputLabel from 'components/InputLabel';
 
 export class ShortTermGoals extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  categoryCard = (category, index) => {
+    const {
+      onAddGoal,
+      onAssignGoal,
+      onEditGoal,
+      onDeleteGoal,
+      onCloseModal
+    } = this.props;
+
+    return (
+      <CategoryWrapper key={ category.name }>
+        <InputLabel>{ category.name }</InputLabel>
+        <ListCardWrapper>
+          <ListCard
+            isListEditable={ false }
+            canAddItems={ true }
+            index={ category.name }
+            items={ category.goals }
+            itemPlaceholder={ `Add a ${category.name} Goal...` }
+            onAddItem={ onAddGoal }
+            onEditItem={ onEditGoal }
+            onDeleteItem={ onDeleteGoal }
+          />
+        </ListCardWrapper>
+      </CategoryWrapper>
+    );
+  }
+
   render() {
-    const { onAddGoal, onAssignGoal, onEditGoal, onDeleteGoal, onCloseModal } = this.props;
-    const { categories, isModalOpen, pendingGoal, pendingCategory } = this.props.ShortTermGoals;
+    const {
+      onAddGoal,
+      onAssignGoal,
+      onEditGoal,
+      onDeleteGoal,
+      onCloseModal
+    } = this.props;
+    const {
+      categories,
+      isModalOpen,
+      pendingGoal,
+      pendingCategory
+    } = this.props.ShortTermGoals;
 
     return (
       <div>
-        <Title>Short Term Goals</Title>
-        <Container>
-        {
-          categories.map((category) => {
-            return (
-              <ListCardWrapper key={ category.name }>
-                <ListCard
-                  isListEditable={ false }
-                  canAddItems={ true }
-                  title={ category.name }
-                  index={ category.name }
-                  items={ category.goals }
-                  itemPlaceholder={ `Add a ${category.name} Goal...` }
-                  onAddItem={ onAddGoal }
-                  onEditItem={ onEditGoal }
-                  onDeleteItem={ onDeleteGoal }
-                />
-              </ListCardWrapper>
-            );
-          })
-        }
-        </Container>
-        <ShortTermGoalsModal
-          isOpen={ isModalOpen }
-          pendingCategory={ pendingCategory }
-          pendingGoal={ pendingGoal }
-          onCloseModal={ onCloseModal }
-          onAssignGoal={ onAssignGoal }
-        />
+        <FormView>
+          <Title>Short Term Goals</Title>
+          { categories.map(this.categoryCard) }
+          <ShortTermGoalsModal
+            isOpen={ isModalOpen }
+            pendingCategory={ pendingCategory }
+            pendingGoal={ pendingGoal }
+            onCloseModal={ onCloseModal }
+            onAssignGoal={ onAssignGoal }
+          />
+        </FormView>
+        <HelpView>
+          <ShortTermHelp />
+        </HelpView>
       </div>
     );
   }

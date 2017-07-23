@@ -1,14 +1,12 @@
 import styled from 'styled-components';
+import { colors } from 'utils/styleHelpers';
 
 const ListCardWrapper = styled.div`
 	display: inline-block;
-	min-height: 150px;
-	width: 200px;
+	width: 80%;
 	padding: 0px 10px;
 	margin: 0px 5px;
-	background: white;
-	border-radius: 4px;
-	box-shadow: 2px 2px 2px #6C7A89;
+	background: ${ colors.background.light };
 
 	.list-card-title {
 		display: inline-block;

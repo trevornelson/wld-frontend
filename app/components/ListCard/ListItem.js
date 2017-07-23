@@ -7,14 +7,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import { bind, partial } from 'lodash';
+import { colors } from 'utils/styleHelpers';
 
 import TextInput from 'components/TextInput';
 
 const Wrapper = styled.div`
   display: block;
+  background-color: ${ colors.background.light };
 
   input {
-    width: 80%;
+    width: 90%;
     font-size: 12px;
   }
 
@@ -25,6 +27,10 @@ const Wrapper = styled.div`
   .item-utils button {
     font-size: 12px;
   }
+
+  .is-editing {
+    visibility: ${ props => props.isEditing ? 'visible' : 'hidden' };
+  }
 `;
 
 
@@ -32,11 +38,11 @@ class ListItem extends React.PureComponent { // eslint-disable-line react/prefer
   constructor(props) {
     super(props);
     this.state = {
-      isEditing: props.isNew
+      isEditing: false
     };
   }
 
-  handleEdit(e, isEditing) {
+  handleEdit(isEditing, e) {
     this.setState({
       isEditing: isEditing
     });
@@ -73,20 +79,19 @@ class ListItem extends React.PureComponent { // eslint-disable-line react/prefer
 
   renderPreInputIcon() {
     const { isNew, completeable, completed } = this.props;
-    const { isEditing } = this.state;
 
-    if(isEditing) {
+    if(!isNew && completeable) {
       return (
-        <button onClick={ bind(this.handleSave, this) }>
-          <span className={ isNew ? "fa fa-plus" : "fa fa-floppy-o" } />
-        </button>
-      );
-    } else {
-      return !isNew && completeable ? (
         <button onClick={ bind(this.handleToggleComplete, this) }>
           <span className={ completed ? "fa fa-repeat" : "fa fa-check" } />
         </button>
-      ) : null;
+      );
+    } else {
+      return (
+        <button onClick={ bind(this.handleSave, this) } className="is-editing">
+          <span className={ isNew ? "fa fa-plus" : "fa fa-floppy-o" } />
+        </button>
+      );
     }
   }
 
@@ -104,10 +109,9 @@ class ListItem extends React.PureComponent { // eslint-disable-line react/prefer
   render() {
     const { completeable, content, completed, tip, isNew, placeholderText } = this.props;
     const { isEditing } = this.state;
-    console.log(this.props.itemId);
 
     return (
-      <Wrapper>
+      <Wrapper isEditing={ isEditing }>
         <TextInput>
           { this.renderPreInputIcon() }
           <input

@@ -14,6 +14,7 @@ import { changeCorePurpose, changeCoreValue, toggleCoreHelpView } from './action
 import Title from 'components/DashboardInner/Title';
 import HelpView from 'components/HelpView';
 import FormView from 'components/FormView';
+import CoreHelp from 'components/HelpView/CoreHelp';
 import CorePurpose from 'components/Core/CorePurpose';
 import CoreValues from 'components/Core/CoreValues';
 
@@ -42,8 +43,9 @@ export class Core extends React.PureComponent { // eslint-disable-line react/pre
             handleFocus={ onToggleHelpView }
           />
         </FormView>
-        
-        <HelpView activeHelpView={ activeHelpView } />
+        <HelpView>
+          <CoreHelp />
+        </HelpView>
       </div>
     );
   }

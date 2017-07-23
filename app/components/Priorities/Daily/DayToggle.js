@@ -17,6 +17,7 @@ const Wrapper = styled.div`
 
   .right {
     float: right;
+    padding-right: 5rem;
   }
 `;
 

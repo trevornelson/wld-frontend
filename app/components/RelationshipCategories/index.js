@@ -5,60 +5,58 @@
 */
 
 import React, { PropTypes } from 'react';
-import styled from 'styled-components';
+import { chunk } from 'lodash';
 
 import ListCard from 'components/ListCard';
-import ListCardWrapper from './ListCardWrapper';
-
-const Wrapper = styled.div`
-  display: inline-block;
-  background: #DADFE1;
-  padding: 10px;
-  margin-bottom: 25px;
-  border-radius: 3px;
-  box-shadow: 2px 2px 2px #6C7A89;
-`;
+import ListCardWrapper from 'components/ListCard/ListCardWrapper';
+import ListCardRow from 'components/ListCard/ListCardRow';
 
 class RelationshipCategories extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  rowOfCategories = (row, rowIndex) => {
+    return (
+      <ListCardRow key={ rowIndex }>
+        { row.map(this.categoryCard) }
+      </ListCardRow>
+    );
+  }
+
+  categoryCard = (category, index) => {
+    const {
+      onEditCategory,
+      onDeleteCategory,
+      onAddRelationship,
+      onEditRelationship,
+      onDeleteRelationship
+    } = this.props;
+
+    return (
+      <ListCardWrapper key={ category.title + index }>
+        <ListCard
+          isListEditable={ true }
+          canAddItems={ true }
+          title={ category.title }
+          index={ category.id }
+          items={ category.relationships }
+          itemPlaceholder="Add a relationship..."
+          onEditList={ onEditCategory }
+          onDeleteList={ onDeleteCategory }
+          onAddItem={ onAddRelationship }
+          onEditItem={ onEditRelationship }
+          onDeleteItem={ onDeleteRelationship }
+        />
+      </ListCardWrapper>
+    );
+  }
 
   render() {
-  	const {
-  		categories,
-  		onEditCategory,
-  		onDeleteCategory,
-  		onAddRelationship,
-  		onEditRelationship,
-  		onDeleteRelationship
-  	} = this.props;
+    const { categories } = this.props;
+    const renderedCategories = chunk(categories, 2).map(this.rowOfCategories);
 
-    if (categories.length) {
-      return (
-        <Wrapper>
-        { categories.map((category, index) => {
-        		return (
-              <ListCardWrapper key={ category.title + index }>
-          			<ListCard
-                  isListEditable={ true }
-                  canAddItems={ true }
-    	      			title={ category.title }
-    	      			index={ category.id }
-    	      			items={ category.relationships }
-                  itemPlaceholder="Add a relationship..."
-    	      			onEditList={ onEditCategory }
-    	      			onDeleteList={ onDeleteCategory }
-    	      			onAddItem={ onAddRelationship }
-    	      			onEditItem={ onEditRelationship }
-    	      			onDeleteItem={ onDeleteRelationship }
-    	      		/>
-              </ListCardWrapper>
-  	      	);
-        	})
-        }
-        </Wrapper>
-      );
-    } else {
-      return <div />
-    }
+    return (
+      <div>
+        { renderedCategories ? renderedCategories : null }
+      </div>
+    );
   }
 }
 

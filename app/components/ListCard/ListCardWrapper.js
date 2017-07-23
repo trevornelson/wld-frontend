@@ -1,12 +1,14 @@
 import styled from 'styled-components';
+import { colors } from 'utils/styleHelpers';
 
 const ListCardWrapper = styled.div`
 	display: inline-block;
 	min-height: 250px;
-	width: 200px;
+	width: 50%;
 	padding: 0px 10px;
-	margin: 5px 10px;
-	background: white;
+	margin: 5px 5px;
+	background: ${ colors.background.light };
+  border: 1px solid ${ colors.darkBlue };
 	border-radius: 4px;
 	box-shadow: 2px 2px 2px #6C7A89;
 

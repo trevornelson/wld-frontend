@@ -17,6 +17,9 @@ import {
 
 import Title from 'components/DashboardInner/Title';
 import SimpleTextField from 'components/SimpleTextField';
+import HelpView from 'components/HelpView';
+import FormView from 'components/FormView';
+import HabitsHelp from 'components/HelpView/HabitsHelp';
 
 export class Habits extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -32,18 +35,23 @@ export class Habits extends React.PureComponent { // eslint-disable-line react/p
 
     return (
       <div>
-        <Title>Daily Habits</Title>
-        {
-          [0, 1, 2].map((i) => (
-            <SimpleTextField
-              key={ i }
-              item={ active_habits[i] }
-              placeholder="add a habit..."
-              onAdd={ onAddHabit }
-              onDelete={ onDeleteHabit }
-            />
-          ))
-        }
+        <FormView>
+          <Title>Daily Habits</Title>
+          {
+            [0, 1, 2].map((i) => (
+              <SimpleTextField
+                key={ i }
+                item={ active_habits[i] }
+                placeholder="add a habit..."
+                onAdd={ onAddHabit }
+                onDelete={ onDeleteHabit }
+              />
+            ))
+          }
+        </FormView>
+        <HelpView>
+          <HabitsHelp />
+        </HelpView>
       </div>
     );
   }

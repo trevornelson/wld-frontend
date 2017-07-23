@@ -10,19 +10,10 @@ import { createStructuredSelector } from 'reselect';
 import { chunk } from 'lodash';
 import styled from 'styled-components';
 
+import Quarterly from 'components/Priorities/Quarterly';
+import ListCardRow from 'components/ListCard/ListCardRow';
 import { makeSelectQuarterlyPriorities } from 'containers/Priorities/selectors';
 import { addQuarterly, editQuarterly, deleteQuarterly } from 'containers/Priorities/actions';
-
-import Quarterly from 'components/Priorities/Quarterly';
-
-const Wrapper = styled.div`
-  display: block;
-  background: #DADFE1;
-  padding: 10px;
-  margin: 25px 0px;
-  border-radius: 3px;
-  box-shadow: 2px 2px 2px #6C7A89;
-`;
 
 export class QuarterlyPriorities extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   renderRow(groups) {
@@ -50,17 +41,17 @@ export class QuarterlyPriorities extends React.PureComponent { // eslint-disable
     const { quarterlyPriorities } = this.props;
 
     return (
-      <Wrapper>
+      <div>
       {
         chunk(quarterlyPriorities, 2).map((groups, index) => {
           return (
-            <div key={ index }>
+            <ListCardRow key={ index }>
             { this.renderRow(groups) }
-            </div>
+            </ListCardRow>
           );
         })
       }
-      </Wrapper>
+      </div>
     );
   }
 }

@@ -6,7 +6,10 @@
 
 import React, { PropTypes } from 'react';
 
+import CategoryWrapper from 'components/LongGoals/CategoryWrapper';
 import ListCard from 'components/ListCard';
+import ListCardWrapper from 'components/LongGoals/ListCardWrapper';
+import InputLabel from 'components/InputLabel';
 
 class Weekly extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -20,17 +23,19 @@ class Weekly extends React.PureComponent { // eslint-disable-line react/prefer-s
     } = this.props;
 
     return (
-      <ListCard
-        isListEditable={ false }
-        canAddItems={ true }
-        title={ name }
-        index={ dayIndex }
-        items={ priorities }
-        itemPlaceholder="Add a priority..."
-        onAddItem={ onAddDaily }
-        onEditItem={ onEditDaily }
-        onDeleteItem={ onDeleteDaily }
-      />
+      <CategoryWrapper>
+        <InputLabel>{ name }</InputLabel>
+        <ListCard
+          isListEditable={ false }
+          canAddItems={ true }
+          index={ dayIndex }
+          items={ priorities }
+          itemPlaceholder="Add a priority..."
+          onAddItem={ onAddDaily }
+          onEditItem={ onEditDaily }
+          onDeleteItem={ onDeleteDaily }
+        />
+      </CategoryWrapper>
     );
   }
 }
