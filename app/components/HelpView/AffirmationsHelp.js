@@ -18,7 +18,7 @@ class AffirmationsHelp extends React.PureComponent { // eslint-disable-line reac
         <p>Again, make them S.M.A.R.T. goals and give a due-date to each one. It is also suggested that you outline what you will give in return for
            this outcome as it takes something to get something. It’s essential to know what you are willing to give up or do in order to receive.</p>
         <p>
-          Examples:
+          <span>Examples:</span>
           <ul>
           <li>I will complete an Olympic Triathlon in 2017 (and I will practice each week…..)</li>
           <li>I will be a VP at my company by 2020 (I will become an invaluable resource and work to create the best outcomes for me peers and clients)</li>
