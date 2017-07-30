@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { get } from 'lodash';
 import ReactS3Uploader from 'react-s3-uploader';
+import { Carousel } from 'react-responsive-carousel';
 import styled from 'styled-components';
 import { colors } from 'utils/styleHelpers';
 import api from 'services/wld-api';
@@ -32,6 +33,7 @@ import AffirmationsHelp from 'components/HelpView/AffirmationsHelp';
 import ListCard from 'components/ListCard';
 import FeedImage from 'components/FeedImage';
 import ListCardWrapper from './ListCardWrapper';
+import { CarouselWrapper } from 'components/Carousel';
 
 const UploadButtonWrapper = styled.div`
   input[type="file"] {
@@ -140,17 +142,19 @@ export class Affirmations extends React.PureComponent { // eslint-disable-line r
             </UploadButtonWrapper>
             { uploading ? <div>Uploading...</div> : null }
             { error ? <div>{ error }</div> : null }
-            <div>
-              { visualizations.map((v) => (
-                  <FeedImage
-                    key={ v.id }
-                    { ...v }
-                    onEdit={ onEditVisualization }
-                    onDelete={ onDeleteVisualization }
-                  />
-                ))
-              }
-            </div>
+            <CarouselWrapper>
+              <Carousel showArrows={ true }>
+                { visualizations.map((v) => (
+                    <FeedImage
+                      key={ v.id }
+                      { ...v }
+                      onEdit={ onEditVisualization }
+                      onDelete={ onDeleteVisualization }
+                    />
+                  ))
+                }
+              </Carousel>
+            </CarouselWrapper>
           </div>
         </FormView>
         <HelpView>

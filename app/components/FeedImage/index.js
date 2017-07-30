@@ -9,7 +9,6 @@ import styled from 'styled-components';
 import ListItem from 'components/ListCard/ListItem';
 
 const Wrapper = styled.div`
-  width: 400px;
 `;
 
 function FeedImage({ url, caption, id, onEdit, onDelete }) {
