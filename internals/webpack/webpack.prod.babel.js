@@ -25,7 +25,6 @@ module.exports = require('./webpack.base.babel')({
     }),
 
     // Minify and optimize the index.html
-    /**
     new HtmlWebpackPlugin({
       template: 'app/index.html',
       minify: {
@@ -42,11 +41,9 @@ module.exports = require('./webpack.base.babel')({
       },
       inject: true,
     }),
-    **/
 
     // Put it in the end to capture all the HtmlWebpackPlugin's
     // assets manipulations and do leak its manipulations to HtmlWebpackPlugin
-    /**
     new OfflinePlugin({
       relativePaths: false,
       publicPath: '/',
@@ -70,7 +67,6 @@ module.exports = require('./webpack.base.babel')({
       AppCache: false,
     }),
   ],
-  **/
 
   performance: {
     assetFilter: (assetFilename) => !(/(\.map$)|(^(main\.|favicon\.))/.test(assetFilename)),
