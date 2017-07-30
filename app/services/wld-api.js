@@ -3,7 +3,7 @@ import axios from 'axios';
 class WldApi {
   constructor() {
     if(!WldApi.instance) {
-      this.baseURL = 'http://wld-backend.herokuapp.com';
+      this.baseURL = 'https://wld-backend.herokuapp.com';
       //this.baseURL = 'http://localhost:3001';
       this.token = localStorage.getItem('token');
 
